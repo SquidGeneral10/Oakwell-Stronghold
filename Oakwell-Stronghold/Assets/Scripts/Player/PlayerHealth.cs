@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿#region 'Using' information
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#endregion
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -20,10 +22,6 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(1);
-        }
     }
 
     void TakeDamage(int damage)
