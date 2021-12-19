@@ -4,64 +4,61 @@ using System.Collections.Generic;
 using UnityEngine;
 #endregion
 
-public class PlayerMovement : MonoBehaviour
+namespace Player
 {
-    public CharacterController2D controller;
-    float horizontalMove = 0f;
-    public float runSpeed = 14f;
-
-    bool jump = false;
-    bool fall = false;
-    bool punch = false;
-
-    public Animator animator; // Lets me mess with animations through code.
-
-    // Update is called once per frame
-    void Update()
+    public class PlayerMovement : MonoBehaviour
     {
-        Input.GetAxisRaw("Horizontal");
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        public CharacterController2D controller;
+        float horizontalMove = 0f;
+        public float runSpeed = 14f;
+        public PlayerHealth playerHealth;
 
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove)); // Makes sure the run animation plays whichever way you go (left or right).
+        bool jump = false;
+        bool fall = false;
 
-        if (Input.GetButtonDown("Jump"))
+        public Animator animator; // Lets me mess with animations through code.
+
+        void Update()
         {
-            jump = true;
-            animator.SetBool("Jumping", true);
+            if (playerHealth.currentHealth > 0)
+            {
+                Input.GetAxisRaw("Horizontal");
+                horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+                animator.SetFloat("Speed", Mathf.Abs(horizontalMove)); // Makes sure the run animation plays whichever way you go (left or right).
+
+                if (Input.GetButtonDown("Jump"))
+                {
+                    jump = true;
+                    animator.SetBool("Jumping", true);
+                }          
+            }
         }
 
-        if (Input.GetButtonDown("Punch"))
-        { 
-            punch = true;
-            StartCoroutine(PunchingAnimation());
+        public void OnLanding()
+        {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
         }
-        
-    }
 
-    IEnumerator PunchingAnimation()
-    {
-        animator.SetBool("Punching", true);
-        yield return new WaitForSeconds(0.3f);
-        animator.SetBool("Punching", false);
-        punch = false;
-    }
+        public void OnFalling()
+        {
+            animator.SetBool("Falling", true);
+            fall = true;
+        }
 
-    public void OnLanding()
-    {
-        animator.SetBool("Jumping", false);
-        animator.SetBool("Falling", false);
-    }
-
-    public void OnFalling()
-    {
-        animator.SetBool("Falling", true);
-        fall = true;
-    }
-
-    private void FixedUpdate()
-    {
-        // Move character.
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jump); // When the player moves horizontally, they simply move in that direction without jumping.
-        jump = false; // Stops the player from jumping forever and ever and ever and ever.
+        private void FixedUpdate()
+        {
+            if (playerHealth.currentHealth > 0)
+            {
+                controller.Move(horizontalMove * Time.fixedDeltaTime, jump); // When the player moves horizontally, they simply move in that direction without jumping.
+                jump = false; // Stops the player from jumping forever and ever and ever and ever.
+            }
+            else
+            {
+                controller.Move(0 * 0, jump);
+                runSpeed = 0f;
+            }
+        }
     }
 }
