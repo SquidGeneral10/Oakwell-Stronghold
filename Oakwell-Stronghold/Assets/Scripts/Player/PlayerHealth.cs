@@ -9,31 +9,22 @@ namespace Player
 {
     public class PlayerHealth : MonoBehaviour
     {
-
         public Healthbar healthBar;
-        public int maxHealth = 7;
+        public int maxHealth = 6;
         public int currentHealth;
         public Animator animator;
+        public HealthPickup coin;
 
-        // Start is called before the first frame update
         void Start()
         {
             currentHealth = maxHealth; // starts the game with full health
             healthBar.SetMaxHealth(maxHealth);
         }
 
-        // Update is called once per frame
         void Update()
         {
-           if(Input.GetKeyDown(KeyCode.F))
-           {
-                TakeDamage(1);
-           }
-
             if (currentHealth <= 0)
-            {
-                StartCoroutine(Dead());
-            }
+            { StartCoroutine(Dead()); }
         }
 
         void TakeDamage(int damage)

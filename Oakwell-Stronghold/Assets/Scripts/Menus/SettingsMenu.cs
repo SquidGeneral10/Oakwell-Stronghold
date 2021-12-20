@@ -51,7 +51,6 @@ public class SettingsMenu : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen; // Makes the game fullscreen on startup.
-        PlayerPrefs.Save();
     }
 
     public void SetVolume(float volume)
