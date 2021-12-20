@@ -8,10 +8,10 @@ public class PlayerAttack : MonoBehaviour
 {
 
     public Animator animator; // Allows me to mess with animations through code.
-    bool punch = false;
     public Transform attackPoint;
-    public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+
+    public float attackRange = 0.5f;    
     public int attackDamage = 1; // Default damage is 1, leaves the door open for upgrades :P
     public float attackRate = 2f; // Number of times you can attack in every second
     float nextAttackTime = 0f;
@@ -31,16 +31,14 @@ public class PlayerAttack : MonoBehaviour
     public void Attack()
     {
         if (Input.GetButtonDown("Punch"))
-        {
-            punch = true;
-            StartCoroutine(PunchingAnimation()); // Animates the punch.
-        }
+        { StartCoroutine(PunchingAnimation()); } // Animates the punch.
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); // Looks for enemies in the circle
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.GetComponent<Enemy>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
+            Debug.Log("We hit " + enemy.name); // omg its danny, nooo
         }
     }
 
@@ -49,10 +47,9 @@ public class PlayerAttack : MonoBehaviour
         animator.SetBool("Punching", true);
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("Punching", false);
-        punch = false;
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
             return;

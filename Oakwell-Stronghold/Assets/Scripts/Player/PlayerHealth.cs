@@ -14,6 +14,7 @@ namespace Player
         public int currentHealth;
         public Animator animator;
         public HealthPickup coin;
+        public AudioSource pain;
 
         void Start()
         {
@@ -27,8 +28,9 @@ namespace Player
             { StartCoroutine(Dead()); }
         }
 
-        void TakeDamage(int damage)
+        public void TakeDamage(int damage)
         {
+            pain.Play();
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
         }
