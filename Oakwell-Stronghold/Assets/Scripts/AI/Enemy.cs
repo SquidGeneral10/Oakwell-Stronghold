@@ -2,67 +2,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 #endregion
 
 public class Enemy : MonoBehaviour
 {
-    #region Healthy bits
-    public int enemyMaxHealth = 3;
-    int enemyCurrentHealth;
-    #endregion
-
-    #region Patrolling bits
+    #region Public Variables
     public Transform rayCast;
-    public Transform leftLimit;
-    public Transform rightLimit;
     public LayerMask raycastMask;
     public float rayCastLength;
-    public float attackDistance;
-
-    private RaycastHit2D hit;
-    private Transform target;
-    private float distance; // the distance between enemy and player
-    private bool attackMode;
-    private bool inRange; // checks if player is in attack range
-    private bool waiting;
-    #endregion
-
-    #region Other bits
-    public float enemyHorizontalMove = 0f;
+    public float attackDistance; //Minimum distance for attack
+    public float moveSpeed;
+    public float timer; //Timer for cooldown between attacks
+    public Transform leftLimit;
+    public Transform rightLimit;
+    public int enemyMaxHealth = 3;
     public Rigidbody2D rigidBody;
-    #endregion
-
-    #region Fighty bits
-    public int attackDamage = 1; 
-    public float attackTimer; // Timer for cooldown between attacks
-    private float internalTimer;
-    #endregion
-
-    #region Sounds and Animatey Bits
     public Animator animator; // Lets me mess with animations through code.
     public AudioSource hurt; // The source of the squish sound effect that plays whenever the enemy's hit. drag it into the inspector.
     public AudioSource dead; // source of the dying sound effect that plays when the enemy conks out. drag into inspector
+
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
     #endregion
 
-    private void Start()
+    #region Private Variables
+    private RaycastHit2D hit;
+    private Transform target;
+    private Animator anim;
+    private float distance; //Store the distance b/w enemy and player
+    private bool attackMode;
+    private bool inRange; //Check if Player is in range
+    private bool cooling; //Check if Enemy is cooling after attack
+    private float intTimer;
+    private int enemyCurrentHealth;
+    private int attackDamage = 1;
+    #endregion
+
+    void Awake()
     {
         SelectTarget();
+        intTimer = timer; //Store the inital value of timer
+        anim = GetComponent<Animator>();
         enemyCurrentHealth = enemyMaxHealth;
-        internalTimer = attackTimer; // Store the inital value of timer
-        animator.GetComponent<Animator>();
     }
 
     void Update()
     {
-        if(!attackMode)
+        if (!attackMode)
         {
-            animator.SetFloat("EnemySpeed", Mathf.Abs(enemyHorizontalMove)); // maybe use this to have the new skeleton run off.
             Move();
         }
-        
-        if(!InsideofLimits() && !inRange && !animator.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
-        {
 
+        if (!InsideOfLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
+        {
+            SelectTarget();
         }
 
         if (inRange)
@@ -83,14 +77,11 @@ public class Enemy : MonoBehaviour
 
         if (inRange == false)
         {
-            animator.SetBool("canMove", false);
-            animator.SetFloat("EnemySpeed", Mathf.Abs(0)); // Makes sure the run animation plays whichever way you go (left or right).
-            
-            StopAttack();
+            StopAttack(); // The enemy stops attacking when the player's totally out of their range.
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D trig)
+    void OnTriggerEnter2D(Collider2D trig)
     {
         if (trig.gameObject.tag == "Player")
         {
@@ -108,80 +99,68 @@ public class Enemy : MonoBehaviour
         {
             StopAttack();
         }
-        else if (attackDistance >= distance && waiting == false)
+        else if (attackDistance >= distance && cooling == false)
         {
             Attack();
         }
 
-        if (waiting)
+        if (cooling)
         {
-            BingChilling();
-            animator.SetBool("Punching", false);
+            Cooldown();
+            anim.SetBool("Punching", false);
         }
     }
 
     void Move()
     {
-        animator.SetBool("canMove", true);
-        animator.SetFloat("EnemySpeed", Mathf.Abs(enemyHorizontalMove)); // Makes sure the run animation plays whichever way you go (left or right).
+        anim.SetBool("canMove", true);
+        animator.SetFloat("EnemySpeed", Mathf.Abs(moveSpeed)); // maybe use this to have the new skeleton run off.
 
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
         {
             Vector2 targetPosition = new Vector2(target.position.x, transform.position.y);
 
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyHorizontalMove * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        enemyCurrentHealth -= damage;  // calls in the PlayerAttack script's damage number
-        hurt.Play(); // plays the hurt sound
-
-        if(enemyCurrentHealth <=0) // if his health is equal to or below 0...
-        { Die(); } // dead lol
-    }
-
-    void Die()
-    {
-        animator.SetBool("EnemyDie", true); // shows the dead animation
-        rigidBody.simulated = false; // Stops the body from sliding away.
-        dead.Play();
-        GetComponent<BoxCollider2D>().enabled = false; // makes the enemy fall through the floor upon death, hmm
-        enabled = false;
     }
 
     void Attack()
     {
-        attackTimer = internalTimer;
-        StartCoroutine(EnemyPunchingAnimation()); // Animates the punch.
-    }
+        timer = intTimer; // Reset Timer when Player enter Attack Range
+        attackMode = true; // To check if Enemy can still attack or not
 
-    IEnumerator EnemyPunchingAnimation()
-    {
-        animator.SetBool("canMove", false);
-        animator.SetBool("Punching", true);
-        yield return new WaitForSeconds(0.3f);
-        animator.SetBool("Punching", false);
-    }
+        anim.SetBool("canMove", false);
+        anim.SetBool("Punching", true);
 
-    void StopAttack() // For making the enemy stop attacking when the player's out of their range.
-    {
-        waiting = false;
-        attackMode = false;
-        animator.SetBool("Punching", false);
-    }
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, raycastMask); // Looks for enemies in the circle
 
-    void BingChilling()
-    {    
-        
-        attackTimer -= Time.deltaTime;
-
-        if (attackTimer <= 0 && waiting && attackMode)
+        foreach (Collider2D player in hitPlayer)
         {
-            waiting = false;
-            attackTimer = internalTimer;
+            player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage is 1
+            Debug.Log(player.name + "hit by enemy");
         }
+
+        
+    }
+
+    void Cooldown()
+    {
+        timer -= Time.deltaTime;
+        animator.SetFloat("EnemySpeed", Mathf.Abs(0)); // Forces the idle animation to play while cooling down from an attack.
+
+        if (timer <= 0 && cooling && attackMode)
+        {
+            cooling = false;
+            timer = intTimer;
+            animator.SetFloat("EnemySpeed", Mathf.Abs(moveSpeed)); // maybe use this to have the new skeleton run off.
+        }
+    }
+
+    void StopAttack()
+    {
+        cooling = false;
+        attackMode = false;
+        anim.SetBool("Punching", false);
     }
 
     void RaycastDebugger()
@@ -196,22 +175,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void HoldYourHorses()
+    public void TriggerCooling()
     {
-        waiting = true;
+        cooling = true;
     }
 
-    private bool InsideofLimits()
+    private bool InsideOfLimits() // Sends the enemy back to their starting position if you leave their aggro range.
     {
         return transform.position.x > leftLimit.position.x && transform.position.x < rightLimit.position.x;
     }
 
     private void SelectTarget()
     {
-        float distanceToLeft = Vector2.Distance(transform.position, leftLimit.position);
-        float distanceToRight = Vector2.Distance(transform.position, rightLimit.position);
+        float distanceToLeft = Vector3.Distance(transform.position, leftLimit.position);
+        float distanceToRight = Vector3.Distance(transform.position, rightLimit.position);
 
-        if(distanceToLeft > distanceToRight)
+        if (distanceToLeft > distanceToRight)
         {
             target = leftLimit;
         }
@@ -220,22 +199,53 @@ public class Enemy : MonoBehaviour
             target = rightLimit;
         }
 
+        //Ternary Operator
+        //target = distanceToLeft > distanceToRight ? leftLimit : rightLimit;
+
         Flip();
     }
 
-    private void Flip()
+    void Flip()
     {
         Vector3 rotation = transform.eulerAngles;
-
-        if(transform.position.x > target.position.y)
+        if (transform.position.x > target.position.x)
         {
-            rotation.y = 180f; // Flips the enemy around when they've reached the edge of their patrol route.
+            rotation.y = 180;
         }
         else
         {
-            rotation.y = 0f;
+            rotation.y = 0;
         }
 
+        //Ternary Operator
+        //rotation.y = (currentTarget.position.x < transform.position.x) ? rotation.y = 180f : rotation.y = 0f;
+
         transform.eulerAngles = rotation;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        enemyCurrentHealth -= damage;  // calls in the PlayerAttack script's damage number
+        hurt.Play(); // plays the hurt sound
+
+        if (enemyCurrentHealth <= 0) // if his health is equal to or below 0...
+        { Die(); } // dead lol
+    }
+
+    void Die()
+    {
+        dead.Play();
+        animator.SetBool("EnemyDie", true); // shows the dead animation
+        rigidBody.simulated = false; // Stops the body from sliding away.
+        GetComponent<BoxCollider2D>().enabled = false;
+        enabled = false; // Disables this script when the enemy's dead. make sure this line is on the bottom, nothing below it is run
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
