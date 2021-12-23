@@ -16,10 +16,10 @@ public class Enemy : MonoBehaviour
     public int enemyMaxHealth = 3;
     public Rigidbody2D rigidBody;
     public Animator animator; // Lets me mess with animations through code.
-    public AudioSource hurt; // The source of the squish sound effect that plays whenever the enemy's hit. drag it into the inspector.
-    public AudioSource dead; // source of the dying sound effect that plays when the enemy conks out. drag into inspector
+    public AudioSource hurt; // The source of the squish sound effect that plays whenever the enemy's hit.
+    public AudioSource dead; // source of the dying sound effect that plays when the enemy conks out. 
     [HideInInspector] public Transform target;
-    [HideInInspector] public bool inRange; //Check if Player is in range
+    [HideInInspector] public bool inRange; // Check if Player is in range
     public GameObject aggroZone;
     public GameObject triggerArea;
     #endregion
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private float distance; //Stores the distance between enemy and player
     private bool attackMode;
-    private bool cooling; //Check if Enemy is cooling after attack
+    private bool cooling; // Check if Enemy is 'cooling' (waiting) after attack
     private float intTimer;
     private int enemyCurrentHealth;
     public int attackDamage = 1;
@@ -45,19 +45,13 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         if (!attackMode)
-        {
-            Move();
-        }
+        { Move(); }
 
         if (!InsideOfLimits() && !inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
-        {
-            SelectTarget();
-        }      
+        { SelectTarget(); }      
 
         if (inRange)
-        {
-            EnemyLogic(); // The enemy stops attacking when the player's totally out of their range.
-        }
+        { EnemyLogic(); } // The enemy stops attacking when the player's totally out of their range.
     }
 
     void EnemyLogic()
@@ -80,7 +74,6 @@ public class Enemy : MonoBehaviour
     void Move()
     {
         anim.SetBool("canMove", true);
-        animator.SetFloat("EnemySpeed", Mathf.Abs(moveSpeed));
 
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
         {
@@ -92,21 +85,19 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         timer = intTimer; 
-        attackMode = true; 
+        attackMode = true;
         anim.SetBool("canMove", false);
         anim.SetBool("Punching", true);       
     }
 
-    void Cooldown()
+    void Cooldown() // Enemies will have a short 'rest' in between punches.
     {
         timer -= Time.deltaTime;
-        animator.SetFloat("EnemySpeed", Mathf.Abs(0)); // Forces the idle animation to play while cooling down from an attack.
 
         if (timer <= 0 && cooling && attackMode)
         {
             cooling = false;
             timer = intTimer;
-            animator.SetFloat("EnemySpeed", Mathf.Abs(moveSpeed)); // maybe use this to have the new skeleton run off.
         }
     }
 
@@ -121,9 +112,7 @@ public class Enemy : MonoBehaviour
     { cooling = true; }
 
     private bool InsideOfLimits() // Sends the enemy back to their starting position if you leave their aggro range.
-    {
-        return transform.position.x > leftLimit.position.x && transform.position.x < rightLimit.position.x;
-    }
+    { return transform.position.x > leftLimit.position.x && transform.position.x < rightLimit.position.x; }
 
     public void SelectTarget()
     {

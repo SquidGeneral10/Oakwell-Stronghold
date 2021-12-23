@@ -32,7 +32,7 @@ public class AggroZoneChecks : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider collider)
+    private void OnTriggerExit2D(Collider2D collider)
     {
         if(collider.gameObject.CompareTag("Player"))
         {
