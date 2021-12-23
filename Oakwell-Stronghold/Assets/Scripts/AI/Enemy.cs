@@ -8,30 +8,32 @@ using Player;
 public class Enemy : MonoBehaviour
 {
     #region Public Variables
-    public float attackDistance; //Minimum distance for attack
-    public float moveSpeed;
-    public float timer; //Timer for cooldown between attacks
-    public Transform leftLimit;
-    public Transform rightLimit;
-    public int enemyMaxHealth = 3;
-    public Rigidbody2D rigidBody;
-    public Animator animator; // Lets me mess with animations through code.
+    public float attackDistance; // The closest the player needs to be for the enemy to swing.
+    public float moveSpeed; // The enemy's movement speed. Modify in-editor.
+    public float timer; // Timer for cooldown between attacks
+    public Transform leftLimit; // The left side of the enemy's patrol route.
+    public Transform rightLimit; // The right side of the enemy's patrol route.
+    public GameObject hitBox; // An empty with a boxcollider2d attached - will hopefully be used to hurt the player if they're in it and the enemy is punching
+    public int enemyMaxHealth = 3; // Enemy's maximum health. Can be modified in-editor.
+    public Rigidbody2D rigidBody; // Moves the enemy. Disable to stop it from moving.
     public AudioSource hurt; // The source of the squish sound effect that plays whenever the enemy's hit.
     public AudioSource dead; // source of the dying sound effect that plays when the enemy conks out. 
     [HideInInspector] public Transform target;
     [HideInInspector] public bool inRange; // Check if Player is in range
-    public GameObject aggroZone;
-    public GameObject triggerArea;
+    public GameObject aggroZone; // Larger box - if the player is in it after being chased, the enemy continues chasing them.
+    public GameObject triggerArea; // Smaller box - if the player is in it, the enemy begins chasing them.
+    public int attackDamage = 1; // The damage that the enemy does to the player.
+    public LayerMask playerLayer;
     #endregion
 
     #region Private Variables
-    private Animator anim;
+    private Animator anim; // Lets me mess with animations through code.
     private float distance; //Stores the distance between enemy and player
-    private bool attackMode;
+    private bool attackMode; // Yes / no - is the enemy attacking?
     private bool cooling; // Check if Enemy is 'cooling' (waiting) after attack
-    private float intTimer;
-    private int enemyCurrentHealth;
-    public int attackDamage = 1;
+    private float intTimer; // Time between attacks.
+    private int enemyCurrentHealth; // the enemy's current health - if it's equal to or below zero, they're having a reeeal bad time.
+
     #endregion
 
     void Awake()
@@ -87,13 +89,20 @@ public class Enemy : MonoBehaviour
         timer = intTimer; 
         attackMode = true;
         anim.SetBool("canMove", false);
-        anim.SetBool("Punching", true);       
+        anim.SetBool("Punching", true);
+
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(hitBox.transform.position, attackDistance, playerLayer); // Looks for player in the circle
+
+        foreach (Collider2D player in hitPlayer)
+        {
+            player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
+            Debug.Log("Whack!");
+        }
     }
 
     void Cooldown() // Enemies will have a short 'rest' in between punches.
     {
         timer -= Time.deltaTime;
-
         if (timer <= 0 && cooling && attackMode)
         {
             cooling = false;
@@ -104,8 +113,9 @@ public class Enemy : MonoBehaviour
     void StopAttack()
     {
         cooling = false;
-        attackMode = false;
+        attackMode = false;        
         anim.SetBool("Punching", false);
+        hitBox.SetActive(false);
     }
 
     public void TriggerCooling()
@@ -150,9 +160,14 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         dead.Play();
-        animator.SetBool("EnemyDie", true); // shows the dead animation
+        anim.SetBool("EnemyDie", true); // shows the dead animation
         rigidBody.simulated = false; // Stops the body from sliding away.
         GetComponent<BoxCollider2D>().enabled = false;
         enabled = false; // Disables this script when the enemy's dead. make sure this line is on the bottom, nothing below it is run
+    }
+
+    void StopKillingMe()
+    {
+        hitBox.SetActive(false);
     }
 }
