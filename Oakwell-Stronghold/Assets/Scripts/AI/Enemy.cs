@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public float timer; // Timer for cooldown between attacks
     public Transform leftLimit; // The left side of the enemy's patrol route.
     public Transform rightLimit; // The right side of the enemy's patrol route.
-    public GameObject hitBox; // An empty with a boxcollider2d attached - will hopefully be used to hurt the player if they're in it and the enemy is punching
+    public GameObject hitBox; // An empty object with a boxcollider2d attached - will hurt the player IF they're in it AND the enemy is punching
     public int enemyMaxHealth = 3; // Enemy's maximum health. Can be modified in-editor.
     public Rigidbody2D rigidBody; // Moves the enemy. Disable to stop it from moving.
     public AudioSource hurt; // The source of the squish sound effect that plays whenever the enemy's hit.
@@ -90,13 +90,17 @@ public class Enemy : MonoBehaviour
         attackMode = true;
         anim.SetBool("canMove", false);
         anim.SetBool("Punching", true);
+        hitBox.SetActive(true);
 
-        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(hitBox.transform.position, attackDistance, playerLayer); // Looks for player in the circle
-
-        foreach (Collider2D player in hitPlayer)
+        if(hitBox.activeInHierarchy)
         {
-            player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
-            Debug.Log("Whack!");
+            Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(hitBox.transform.position, attackDistance, playerLayer); // Looks for player in the circle
+
+            foreach (Collider2D player in hitPlayer) // hurts the player when they're in the circle
+            {
+                player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
+                Debug.Log("Whack!");                       
+            }
         }
     }
 
@@ -153,21 +157,16 @@ public class Enemy : MonoBehaviour
         enemyCurrentHealth -= damage;  // calls in the PlayerAttack script's damage number
         hurt.Play(); // plays the hurt sound
 
-        if (enemyCurrentHealth <= 0) // if his health is equal to or below 0...
+        if (enemyCurrentHealth <= 0) // if enemy's health is equal to or below 0...
         { Die(); } // dead lol
     }
 
     void Die()
     {
-        dead.Play();
+        dead.Play(); // plays the death sound
         anim.SetBool("EnemyDie", true); // shows the dead animation
         rigidBody.simulated = false; // Stops the body from sliding away.
         GetComponent<BoxCollider2D>().enabled = false;
-        enabled = false; // Disables this script when the enemy's dead. make sure this line is on the bottom, nothing below it is run
-    }
-
-    void StopKillingMe()
-    {
-        hitBox.SetActive(false);
+        enabled = false; // Disables this script when the enemy's dead. make sure this line is on the bottom of the method, nothing below it is run
     }
 }

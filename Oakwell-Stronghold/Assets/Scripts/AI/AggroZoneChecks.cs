@@ -19,17 +19,13 @@ public class AggroZoneChecks : MonoBehaviour
     private void Update()
     {
         if(inRange && !anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
-        {
-            enemyParent.Flip();
-        }
+        { enemyParent.Flip(); }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.CompareTag("Player"))
-                {
-            inRange = true;
-        }
+        { inRange = true; }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
