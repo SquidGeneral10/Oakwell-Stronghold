@@ -1,4 +1,4 @@
-﻿#region 'Using' info
+﻿#region 'Using' information
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
 
     void EnemyLogic()
     {
-        distance = Vector2.Distance(transform.position, target.position);
+        distance = Vector2.Distance(transform.position, target.position); // Constantly checks where the enemy is - useful for setting patrol boundaries and checking distance between enemy and player.
 
         if (distance > attackDistance)
         { StopAttack(); }
@@ -69,39 +69,46 @@ public class Enemy : MonoBehaviour
         if (cooling)
         {
             Cooldown();
-            anim.SetBool("Punching", false);
         }
     }
 
-    void Move()
+    void Move() // As you'd expect, this method makes the enemy move.
     {
-        anim.SetBool("canMove", true);
+        anim.SetBool("canMove", true); // TODO: Figure out why the first two frames of the moving animation are the only ones playing. Maybe it's trying to play more than one animation at once?
 
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Punching")) // Moves the enemy, as long as they aren't already punching them.
         {
             Vector2 targetPosition = new Vector2(target.position.x, transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
     }
 
-    void Attack()
+    void Attack() // When the player's in the aggro zone, this method is responsible for bringing the hurt.
     {
         timer = intTimer; 
         attackMode = true;
         anim.SetBool("canMove", false);
-        anim.SetBool("Punching", true);
+        { StartCoroutine(PunchingAnimation()); }
+        TriggerCooling();
         hitBox.SetActive(true);
 
-        if(hitBox.activeInHierarchy)
+        if (hitBox.activeInHierarchy)
         {
             Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(hitBox.transform.position, attackDistance, playerLayer); // Looks for player in the circle
 
             foreach (Collider2D player in hitPlayer) // hurts the player when they're in the circle
             {
                 player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
-                Debug.Log("Whack!");                       
+                Debug.Log("Whack!");
             }
         }
+    }
+
+    IEnumerator PunchingAnimation()
+    {
+        anim.SetBool("Punching", true);
+        yield return new WaitForSeconds(0.3f);
+        anim.SetBool("Punching", false);
     }
 
     void Cooldown() // Enemies will have a short 'rest' in between punches.
@@ -114,7 +121,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void StopAttack()
+    void StopAttack() // When the player's successfully left the aggro zone, this method is responsible for un-triggering all their attack stuff.
     {
         cooling = false;
         attackMode = false;        
@@ -122,13 +129,13 @@ public class Enemy : MonoBehaviour
         hitBox.SetActive(false);
     }
 
-    public void TriggerCooling()
+    public void TriggerCooling() // Called by the enemy's punch animation; makes sure they're waiting for a second or two between their attacks.
     { cooling = true; }
 
     private bool InsideOfLimits() // Sends the enemy back to their starting position if you leave their aggro range.
     { return transform.position.x > leftLimit.position.x && transform.position.x < rightLimit.position.x; }
 
-    public void SelectTarget()
+    public void SelectTarget() // Responsible for making the enemy walk left and right.
     {
         float distanceToLeft = Vector3.Distance(transform.position, leftLimit.position);
         float distanceToRight = Vector3.Distance(transform.position, rightLimit.position);
@@ -141,7 +148,7 @@ public class Enemy : MonoBehaviour
         Flip();
     }
 
-    public void Flip()
+    public void Flip() // Flips the enemy sprite 180 degrees whenever they need to turn around.
     {
         Vector3 rotation = transform.eulerAngles;
         if (transform.position.x > target.position.x)
@@ -152,7 +159,7 @@ public class Enemy : MonoBehaviour
         transform.eulerAngles = rotation;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage) // Hurts the enemy. Most will only have 3 health.
     {
         enemyCurrentHealth -= damage;  // calls in the PlayerAttack script's damage number
         hurt.Play(); // plays the hurt sound
@@ -161,7 +168,7 @@ public class Enemy : MonoBehaviour
         { Die(); } // dead lol
     }
 
-    void Die()
+    void Die() // Kills the enemy. TODO: Look into spawning a friendly NPC atop their body whenever this happens.
     {
         dead.Play(); // plays the death sound
         anim.SetBool("EnemyDie", true); // shows the dead animation
