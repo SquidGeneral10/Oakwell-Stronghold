@@ -8,6 +8,7 @@ using Player;
 public class Enemy : MonoBehaviour
 {
     #region Public Variables
+
     public float attackDistance; // The closest the player needs to be for the enemy to swing.
     public float moveSpeed; // The enemy's movement speed. Modify in-editor.
     public float timer; // Timer for cooldown between attacks
@@ -23,10 +24,13 @@ public class Enemy : MonoBehaviour
     public GameObject aggroZone; // Larger box - if the player is in it after being chased, the enemy continues chasing them.
     public GameObject triggerArea; // Smaller box - if the player is in it, the enemy begins chasing them.
     public int attackDamage = 1; // The damage that the enemy does to the player.
-    public LayerMask playerLayer;
+    public LayerMask playerLayer; // Makes sure the enemy only chases the PLAYER (because it's the only thing on the player layer)
+    public bool Boned; // Used in the ExitDoor script to ensure all enemies are dead before unlocking the exit door
+
     #endregion
 
     #region Private Variables
+
     private Animator anim; // Lets me mess with animations through code.
     private float distance; //Stores the distance between enemy and player
     private bool attackMode; // Yes / no - is the enemy attacking?
@@ -67,9 +71,7 @@ public class Enemy : MonoBehaviour
         { Attack(); }
 
         if (cooling)
-        {
-            Cooldown();
-        }
+        { Cooldown(); }
     }
 
     void Move() // As you'd expect, this method makes the enemy move.
@@ -165,11 +167,12 @@ public class Enemy : MonoBehaviour
         hurt.Play(); // plays the hurt sound
 
         if (enemyCurrentHealth <= 0) // if enemy's health is equal to or below 0...
-        { Die(); } // dead lol
+        { Die(); } // they're dead lol
     }
 
     void Die() // Kills the enemy. TODO: Look into spawning a friendly NPC atop their body whenever this happens.
     {
+        Boned = true;
         dead.Play(); // plays the death sound
         anim.SetBool("EnemyDie", true); // shows the dead animation
         rigidBody.simulated = false; // Stops the body from sliding away.

@@ -9,7 +9,7 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     static Timer instance;
-    public float countdown = 182.0f; // Every level will count down from 3 minutes. CHANGE IN EDITOR.
+    public float countdown = 180.0f; // Every level will count down from 3 minutes. CHANGE IN EDITOR.
     static bool active;
     public float transitionTime = 1f;
     public TMP_Text timerUI;
@@ -35,13 +35,9 @@ public class Timer : MonoBehaviour
         timerUI.text = minutes + ":" + seconds;
 
         if(countdown <= 120f)
-        {
-            purpleStar.SetActive(false);
-        }
+        { purpleStar.SetActive(false); }
         
         if(countdown <= 60f)
-        {
-            goldStar.SetActive(false);
-        }
+        { goldStar.SetActive(false); }
     }
 }

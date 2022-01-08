@@ -33,9 +33,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void BacktoMenu()
-    {
-        StartCoroutine(LoadLevel(0));
-    }
+    { StartCoroutine(LoadLevel(0)); }
 
     public void QuitGame()
     {

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-
     public Animator animator; // Allows me to mess with animations through code.
     public Transform attackPoint;
     public LayerMask enemyLayers;

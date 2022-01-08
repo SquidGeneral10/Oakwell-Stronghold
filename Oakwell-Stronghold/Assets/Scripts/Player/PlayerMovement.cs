@@ -13,8 +13,8 @@ namespace Player
         public float runSpeed = 14f;
         public PlayerHealth playerHealth;
 
-        bool jump = false;
-        bool fall = false;
+        private bool jump = false;
+        private bool fall = false;
 
         public Animator animator; // Lets me mess with animations through code.
 
