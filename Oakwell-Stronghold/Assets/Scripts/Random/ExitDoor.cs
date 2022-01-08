@@ -17,6 +17,8 @@ public class ExitDoor : MonoBehaviour
     [HideInInspector] public bool reachedExit = false;
     public BoxCollider2D exitBox;
     public AudioSource readyToGo;
+    public AudioClip readyClip;
+    private bool alreadyPlayed = false;
 
     private void Start()
     { spriteRenderer = gameObject.GetComponent<SpriteRenderer>(); }
@@ -24,20 +26,22 @@ public class ExitDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemy1.Boned == true && enemy2.Boned == true && enemy3.Boned == true) // Only opens the door when all three enemies are killed. 3 enemies per level.
-        { ChangeSpriteBeginMusic(); }
+        if (enemy1.Boned == true) // Only opens the door when all three enemies are killed. 3 enemies per level. /// && enemy2.Boned == true && enemy3.Boned == true
+        { ChangeSpriteBeginSound(); }
     }
 
-    void ChangeSpriteBeginMusic()
+    void ChangeSpriteBeginSound()
     {
-        spriteRenderer.sprite = newSprite;
-        readyToGo.Play();
-        Debug.Log("Spammed?");
-        exitBox.enabled = true;
+        spriteRenderer.sprite = newSprite; // Changes the closed door sprite to an open door sprite.
+        exitBox.enabled = true; // Lets the player touch the exit, thus enabling the OnTriggerEnter2D method.
+
+        if(!alreadyPlayed) // only plays this sound effect once. removing this will cause audio spam.
+        {
+            readyToGo.PlayOneShot(readyClip);
+            alreadyPlayed = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // when ya touch the pickup
-    {
-        pauseMenu.LevelComplete();
-    }
+    { pauseMenu.LevelComplete(); }
 }

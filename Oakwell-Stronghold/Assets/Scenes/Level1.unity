@@ -316,7 +316,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -6406,7 +6406,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  Boned: 1
+  Boned: 0
 --- !u!61 &1200687526
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9806,6 +9806,7 @@ MonoBehaviour:
   reachedExit: 0
   exitBox: {fileID: 4404653112619776824}
   readyToGo: {fileID: 45342360}
+  readyClip: {fileID: 8300000, guid: 9d6428fa3bd99b5419bddfe716816ded, type: 3}
 --- !u!212 &4404653112619776822
 SpriteRenderer:
   m_ObjectHideFlags: 0
