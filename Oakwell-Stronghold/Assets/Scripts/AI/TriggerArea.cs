@@ -9,9 +9,7 @@ public class TriggerArea : MonoBehaviour
     private Enemy enemyParent;
 
     private void Awake()
-    {
-        enemyParent = GetComponentInParent<Enemy>();
-    }
+    { enemyParent = GetComponentInParent<Enemy>(); }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {

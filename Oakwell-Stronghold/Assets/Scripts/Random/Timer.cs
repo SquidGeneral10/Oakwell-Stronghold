@@ -9,14 +9,17 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     static Timer instance;
-    float countdown = 302.0f;
+    public float countdown = 182.0f; // Every level will count down from 3 minutes. CHANGE IN EDITOR.
     static bool active;
+    public float transitionTime = 1f;
     public TMP_Text timerUI;
 
+    public GameObject purpleStar;
+    public GameObject goldStar;
+    public GameObject silverStar;
+
     void Awake()
-    {
-        instance = this;
-    }
+    { instance = this; }
 
     void Update()
     {
@@ -27,19 +30,18 @@ public class Timer : MonoBehaviour
 
         string minutes = ((int)displayTimer / 60).ToString();
         string seconds = (displayTimer % 60).ToString("00");
-
         double b = System.Math.Round(countdown, 2);
 
         timerUI.text = minutes + ":" + seconds;
 
-        if (countdown < 0)
+        if(countdown <= 120f)
         {
-            StartCoroutine("LoadNewScene"); // Loads the main menu when timer hits 0
+            purpleStar.SetActive(false);
         }
-    }
-
-    void LoadNewScene()
-    {
-        SceneManager.LoadScene(0);
+        
+        if(countdown <= 60f)
+        {
+            goldStar.SetActive(false);
+        }
     }
 }

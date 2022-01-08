@@ -10,10 +10,20 @@ public class LevelLoader : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
-    public void LoadNextLevel()
-    {
-        StartCoroutine(LoadLevel(1));
-    }
+    public void LoadLevel1()
+    { StartCoroutine(LoadLevel(1)); }
+
+    public void LoadLevel2()
+    { StartCoroutine(LoadLevel(2)); }
+
+    public void LoadLevel3()
+    { StartCoroutine(LoadLevel(3)); }
+
+    public void LoadLevel4()
+    { StartCoroutine(LoadLevel(4)); }
+
+    public void LoadLevel5()
+    { StartCoroutine(LoadLevel(5)); }
 
     IEnumerator LoadLevel(int levelIndex)
     {
