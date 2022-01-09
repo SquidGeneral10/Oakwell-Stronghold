@@ -7,6 +7,25 @@ using System.IO;
 
 public class DataManager : MonoBehaviour
 {
+
+    public static DataManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        //Check if an instance of the singleton already exists
+        //If so, destroy the new instance object
+        //If not, set this object to be the singleton
+        if (Instance != null)
+        { Destroy(gameObject); }
+
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            Load();
+        }
+    }
     public PlayerData data;
     private string file = "player.txt";
 

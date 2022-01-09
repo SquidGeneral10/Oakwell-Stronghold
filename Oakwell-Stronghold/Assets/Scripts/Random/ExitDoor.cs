@@ -19,9 +19,12 @@ public class ExitDoor : MonoBehaviour
     public Enemy enemy3;
     [HideInInspector] public bool reachedExit = false;
     public BoxCollider2D exitBox;
-    public AudioSource readyToGo;
-    public AudioClip readyClip;
+    public AudioSource readyToGo; // door opening sound
+    public AudioClip readyClip; // also door opening sound
     private bool alreadyPlayed = false;
+
+    public AudioSource completeFanfare; // the little doo-doo-doo that plays after beating a level
+    public AudioSource Music; // for turning off the gameplay music after beating a level
     
 
     private void Start()
@@ -48,8 +51,10 @@ public class ExitDoor : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // when ya touch the pickup
-    { 
+    {
+        Music.Stop();
+        completeFanfare.Play();
         pauseMenu.LevelComplete();
-        
+        // todo: some code for checking their stars and saving that value
     }
 }
