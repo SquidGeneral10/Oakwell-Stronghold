@@ -11,10 +11,11 @@ public class LevelLoader : MonoBehaviour
     public float transitionTime = 1f;
     public PlayerData playerData;
     private DataManager dataManager;
+    public GameObject congratulations;
 
     private void Awake()
     {
-        dataManager.LoadGame();
+        DataManager.Instance.LoadGame();
     }
 
     #region Star objects
@@ -90,90 +91,90 @@ public class LevelLoader : MonoBehaviour
     private void Start()
     {
         #region level 1 scores
-        if (playerData.level1Stars == 3)
+        if (DataManager.Instance.Level1Stars == 3)
         {
             L1SA.SetActive(true);
             L1SB.SetActive(true);
             L1SC.SetActive(true);
         }
-        if (playerData.level1Stars == 2)
+        if (DataManager.Instance.Level1Stars == 2)
         {
             L1SB.SetActive(true);
             L1SC.SetActive(true);
         }
-        if (playerData.level1Stars == 1)
+        if (DataManager.Instance.Level1Stars == 1)
         {
             L1SC.SetActive(true);
         }
         #endregion
 
         #region level 2 scores
-        if (playerData.level2Stars == 3)
+        if (DataManager.Instance.Level2Stars == 3)
         {
             L2SA.SetActive(true);
             L2SB.SetActive(true);
             L2SC.SetActive(true);
         }
-        if (playerData.level2Stars == 2)
+        if (DataManager.Instance.Level2Stars == 2)
         {
             L2SB.SetActive(true);
             L2SC.SetActive(true);
         }
-        if (playerData.level2Stars == 1)
+        if (DataManager.Instance.Level2Stars == 1)
         {
             L2SC.SetActive(true);
         }
         #endregion
 
         #region level 3 scores
-        if (playerData.level3Stars == 3)
+        if (DataManager.Instance.Level3Stars == 3)
         {
             L3SA.SetActive(true);
             L3SB.SetActive(true);
             L3SC.SetActive(true);
         }
-        if (playerData.level3Stars == 2)
+        if (DataManager.Instance.Level3Stars == 2)
         {
             L3SB.SetActive(true);
             L3SC.SetActive(true);
         }
-        if (playerData.level3Stars == 1)
+        if (DataManager.Instance.Level3Stars == 1)
         {
             L3SC.SetActive(true);
         }
         #endregion
 
         #region level 4 scores
-        if (playerData.level4Stars == 3)
+        if (DataManager.Instance.Level4Stars == 3)
         {
             L4SA.SetActive(true);
             L4SB.SetActive(true);
             L4SC.SetActive(true);
         }
-        if (playerData.level4Stars == 2)
+        if (DataManager.Instance.Level4Stars == 2)
         {
             L4SB.SetActive(true);
             L4SC.SetActive(true);
         }
-        if (playerData.level4Stars == 1)
+        if (DataManager.Instance.Level4Stars == 1)
         {
             L4SC.SetActive(true);
         }
         #endregion
 
         #region level 5 scores
-        if (playerData.level5Stars == 3)
+        if (DataManager.Instance.Level5Stars == 3)
         {
             L5SA.SetActive(true);
             L5SB.SetActive(true);
             L5SC.SetActive(true);
         }
-        if (playerData.level5Stars == 2)
+        if (DataManager.Instance.Level5Stars == 2)
         {
             L5SB.SetActive(true);
-            L2SC.SetActive(true);
+            L5SC.SetActive(true);
         }
-        if (playerData.level5Stars == 1)
+        if (DataManager.Instance.Level5Stars == 1)
         {
             L5SC.SetActive(true);
         }
@@ -181,17 +182,20 @@ public class LevelLoader : MonoBehaviour
 
         #region Level select conditions
 
-        if(playerData.level1Complete)
+        if(DataManager.Instance.Level1Complete)
         { Level2.SetActive(true); } // After beating level 1, Level 2 appears on the level select menu.
 
-        if (playerData.level2Complete)
+        if (DataManager.Instance.Level2Complete)
         { Level3.SetActive(true); } // After beating level 2, Level 3 appears on the level select menu.
 
-        if (playerData.level3Complete)
+        if (DataManager.Instance.Level3Complete)
         { Level4.SetActive(true); } // After beating level 3, Level 4 appears on the level select menu.
 
-        if (playerData.level4Complete)
+        if (DataManager.Instance.Level4Complete)
         { Level5.SetActive(true); } // After beating level 4, Level 5 appears on the level select menu.
+
+        if(DataManager.Instance.Level5Complete)
+        { congratulations.SetActive(true); }
 
         #endregion
     }
