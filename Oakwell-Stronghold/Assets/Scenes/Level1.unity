@@ -3009,7 +3009,7 @@ GameObject:
   - component: {fileID: 533467988}
   - component: {fileID: 533467989}
   m_Layer: 0
-  m_Name: The Manager
+  m_Name: DataManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3038,10 +3038,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 533467987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ab44471d6b89d45adc9287fdf3d120, type: 3}
+  m_Script: {fileID: 11500000, guid: b3a9171d059e4bc419042c7e2f8d377a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 1192395904}
 --- !u!1 &596371376
 GameObject:
   m_ObjectHideFlags: 0
