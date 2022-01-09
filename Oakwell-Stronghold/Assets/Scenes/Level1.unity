@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 19436587}
   - component: {fileID: 19436586}
   m_Layer: 5
-  m_Name: Star-3
+  m_Name: PurpleStarB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 306333202}
   - component: {fileID: 306333201}
   m_Layer: 5
-  m_Name: Star-1
+  m_Name: SilverStarB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1648,7 +1648,7 @@ GameObject:
   - component: {fileID: 407194089}
   - component: {fileID: 407194088}
   m_Layer: 5
-  m_Name: PurpleStar
+  m_Name: PurpleStarA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2509,7 +2509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &487484044
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3309,9 +3309,12 @@ MonoBehaviour:
   countdown: 182
   transitionTime: 1
   timerUI: {fileID: 1486912418}
-  purpleStar: {fileID: 407194086}
-  goldStar: {fileID: 2111733014}
-  silverStar: {fileID: 659603143}
+  purpleStarA: {fileID: 407194086}
+  goldStarA: {fileID: 2111733014}
+  silverStarA: {fileID: 659603143}
+  purpleStarB: {fileID: 19436584}
+  goldStarB: {fileID: 951193035}
+  silverStarB: {fileID: 306333199}
 --- !u!4 &625519421
 Transform:
   m_ObjectHideFlags: 0
@@ -3338,7 +3341,7 @@ GameObject:
   - component: {fileID: 659603146}
   - component: {fileID: 659603145}
   m_Layer: 5
-  m_Name: SilverStar
+  m_Name: SilverStarA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5516,7 +5519,7 @@ GameObject:
   - component: {fileID: 951193038}
   - component: {fileID: 951193037}
   m_Layer: 5
-  m_Name: Star-2
+  m_Name: GoldStarB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9631,7 +9634,7 @@ GameObject:
   - component: {fileID: 2111733017}
   - component: {fileID: 2111733016}
   m_Layer: 5
-  m_Name: GoldStar
+  m_Name: GoldStarA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9777,7 +9780,7 @@ GameObject:
   - component: {fileID: 4404653112619776822}
   - component: {fileID: 4404653112619776821}
   - component: {fileID: 4404653112619776824}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: ExitDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9864,7 +9867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4404653112619776820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.64, y: 0.81, z: 1}
+  m_LocalPosition: {x: 8.64, y: 0.81, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9883,7 +9886,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.30048278}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9894,5 +9897,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1135784, y: 1.625}
+  m_Size: {x: 0.8911141, y: 1.0240345}
   m_EdgeRadius: 0

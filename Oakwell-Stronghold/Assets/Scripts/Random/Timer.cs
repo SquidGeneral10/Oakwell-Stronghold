@@ -14,9 +14,13 @@ public class Timer : MonoBehaviour
     public float transitionTime = 1f;
     public TMP_Text timerUI;
 
-    public GameObject purpleStar;
-    public GameObject goldStar;
-    public GameObject silverStar;
+    public GameObject purpleStarA;
+    public GameObject goldStarA;
+    public GameObject silverStarA;
+
+    public GameObject purpleStarB;
+    public GameObject goldStarB;
+    public GameObject silverStarB;
 
     void Awake()
     { instance = this; }
@@ -35,9 +39,15 @@ public class Timer : MonoBehaviour
         timerUI.text = minutes + ":" + seconds;
 
         if(countdown <= 120f)
-        { purpleStar.SetActive(false); }
+        { 
+            purpleStarA.SetActive(false); // Removes the purple star that's always visible
+            purpleStarB.SetActive(false); // Removes the purple star on the LevelComplete UI
+        }
         
         if(countdown <= 60f)
-        { goldStar.SetActive(false); }
+        { 
+            goldStarA.SetActive(false); // Removes the gold star that's always visible
+            goldStarB.SetActive(false); // Removes the gold star on the LevelComplete UI
+        }
     }
 }

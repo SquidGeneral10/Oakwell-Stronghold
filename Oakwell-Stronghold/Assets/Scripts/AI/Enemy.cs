@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     public GameObject triggerArea; // Smaller box - if the player is in it, the enemy begins chasing them.
     public int attackDamage = 1; // The damage that the enemy does to the player.
     public LayerMask playerLayer; // Makes sure the enemy only chases the PLAYER (because it's the only thing on the player layer)
-    public bool Boned; // Used in the ExitDoor script to ensure all enemies are dead before unlocking the exit door
+    [HideInInspector] public bool Boned; // Used in the ExitDoor script to ensure all enemies are dead before unlocking the exit door
 
     #endregion
 
@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour
             foreach (Collider2D player in hitPlayer) // hurts the player when they're in the circle
             {
                 player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
-                Debug.Log("Whack!");
+                Debug.Log("Hit by enemy!");
             }
         }
     }
@@ -170,13 +170,21 @@ public class Enemy : MonoBehaviour
         { Die(); } // they're dead lol
     }
 
-    void Die() // Kills the enemy. TODO: Look into spawning a friendly NPC atop their body whenever this happens.
+    IEnumerator Skelefied()
     {
-        Boned = true;
-        dead.Play(); // plays the death sound
-        anim.SetBool("EnemyDie", true); // shows the dead animation
+        yield return new WaitForSeconds(1f); // Waits a sec so the player can understand the consequences of their actions. They killed a man. Pretty messed up, dawg.
+        anim.SetBool("EnemyDie", false); // prevents the death animation from playing any more
+        anim.SetBool("EnemyBoned", true); // Turns the dude into a skeleton
+        Boned = true; // This enemy becomes one of the three boned boys required to get the exit door open.
+    }
+
+    void Die() 
+    {
+        dead.Play(); // Plays the enemy death sound
+        anim.SetBool("EnemyDie", true); // shows the enemy's death animation
+        StartCoroutine(Skelefied()); // Begins the coroutine that will swap his sprite out with that of a skeleton.
         rigidBody.simulated = false; // Stops the body from sliding away.
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false; // Turns off the enemy's hitbox.
         enabled = false; // Disables this script when the enemy's dead. make sure this line is on the bottom of the method, nothing below it is run
     }
 }
