@@ -51,9 +51,10 @@ public class ExitDoor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) // when ya touch the pickup
     {
+        DataManager.Instance.SaveGame();
         Music.Stop();
         completeFanfare.Play();
         pauseMenu.LevelComplete();
-        DataManager.Instance.SaveGame();
+
     }
 }

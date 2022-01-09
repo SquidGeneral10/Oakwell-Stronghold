@@ -56,7 +56,7 @@ public class Timer : MonoBehaviour
             purpleStarA.SetActive(false); // Removes the purple star that's always visible
             purpleStarB.SetActive(false); // Removes the purple star on the LevelComplete UI
 
-            if (!alreadyPlayedA) // only plays this sound effect once. removing this will cause audio spam.
+            if (!alreadyPlayedA) // only plays this sound effect / reduces score by one / saves score once.
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedA = true;

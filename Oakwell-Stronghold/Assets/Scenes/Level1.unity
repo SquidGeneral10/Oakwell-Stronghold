@@ -2509,7 +2509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &487484044
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9733,6 +9733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 487484045}
   transitionTime: 1
+  congratulations: {fileID: 0}
   L1SA: {fileID: 0}
   L1SB: {fileID: 0}
   L1SC: {fileID: 0}
@@ -10211,7 +10212,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 498183719}
   pauseMenu: {fileID: 1992421717}
-  dataManager: {fileID: 533467989}
   spriteRenderer: {fileID: 4404653112619776822}
   newSprite: {fileID: 21300000, guid: b0e43f249ea8ef744888061caab5349f, type: 3}
   enemy1: {fileID: 1200687524}

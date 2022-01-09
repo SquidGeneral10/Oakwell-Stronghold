@@ -28,10 +28,10 @@ public class DataManager : MonoBehaviour
 
     public void Awake()
     {
-        if (Instance != null) // if an instance of the singleton already exists
+        if (Instance != null) // if an instance of the datamanager already exists
         { Destroy(gameObject); } // destroy it
         else
-        { Instance = this; } // and make this one the real slim shady
+        { Instance = this; } // and make this one the real slim shady. makes sure the damn thing works, and stops the game from making more when a new scene's loaded.
 
         DontDestroyOnLoad(gameObject);
         LoadGame();
@@ -56,6 +56,18 @@ public class DataManager : MonoBehaviour
             FileStream file = File.Open(Application.persistentDataPath + "/saveData.dat", FileMode.Open);
 
             PlayerData data = (PlayerData)bf.Deserialize(file);
+
+            Level1Stars = data.Level1Stars;
+            Level2Stars = data.Level2Stars;
+            Level3Stars = data.Level3Stars;
+            Level4Stars = data.Level4Stars;
+            Level5Stars = data.Level5Stars;
+
+            Level1Complete = data.Level1Complete;
+            Level2Complete = data.Level2Complete;
+            Level3Complete = data.Level3Complete;
+            Level4Complete = data.Level4Complete;
+            Level5Complete = data.Level5Complete;
 
             file.Close();
         }
