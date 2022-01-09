@@ -11,19 +11,16 @@ public class MainMenu : MonoBehaviour
         Click on the buttons, then add one of the two methods below via the 'OnClicked' part that handles events in the inspector.         
     */
 
-    private void Awake()
-    {
-        DataManager.Instance.LoadGame();
-    }
-
     private void Start()
     {
+        DataManager.Instance.LoadGame();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void QuitGame()
     {
+        DataManager.Instance.SaveGame();
         Debug.Log("QUIT!"); // Prints 'QUIT' if testing this in the editor.
         Application.Quit(); // Closes the game.
     }

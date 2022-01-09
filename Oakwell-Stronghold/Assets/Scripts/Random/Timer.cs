@@ -34,7 +34,6 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Instance.LoadGame();
         DataManager.Instance.Level1Stars = 3;
     }
 
@@ -61,7 +60,6 @@ public class Timer : MonoBehaviour
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedA = true;
                 DataManager.Instance.Level1Stars--; // damn, they down to gold
-                DataManager.Instance.SaveGame();
             }
         }
         
@@ -75,7 +73,6 @@ public class Timer : MonoBehaviour
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedB = true;
                 DataManager.Instance.Level1Stars--; // ZAMN, they down to SILVER
-                DataManager.Instance.SaveGame();
             }
         }
     }

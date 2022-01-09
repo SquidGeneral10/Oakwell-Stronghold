@@ -10,7 +10,6 @@ public class LevelLoader : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
     public PlayerData playerData;
-    private DataManager dataManager;
     public GameObject congratulations;
 
     private void Awake()

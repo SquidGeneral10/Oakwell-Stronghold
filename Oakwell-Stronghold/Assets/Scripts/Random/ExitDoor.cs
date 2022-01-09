@@ -55,6 +55,5 @@ public class ExitDoor : MonoBehaviour
         Music.Stop();
         completeFanfare.Play();
         pauseMenu.LevelComplete();
-
     }
 }

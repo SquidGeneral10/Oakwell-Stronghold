@@ -11,7 +11,7 @@ namespace Player
     {
         public Healthbar healthBar;
         public int maxHealth = 6;
-        public int currentHealth;
+        [HideInInspector] public int currentHealth;
         public Animator animator;
         public HealthPickup coin;
         public AudioSource pain;
