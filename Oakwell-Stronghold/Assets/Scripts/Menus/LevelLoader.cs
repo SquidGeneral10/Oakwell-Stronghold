@@ -12,11 +12,6 @@ public class LevelLoader : MonoBehaviour
     public PlayerData playerData;
     public GameObject congratulations;
 
-    private void Awake()
-    {
-        DataManager.Instance.LoadGame();
-    }
-
     #region Star objects
     /// <summary>
     /// L = Level, A = Purple, B = Gold, C = Silver
@@ -33,7 +28,7 @@ public class LevelLoader : MonoBehaviour
     public GameObject L3SB;
     public GameObject L3SC;
 
-    public GameObject L4SA;
+    public GameObject L4SA; // beam. pew pew
     public GameObject L4SB;
     public GameObject L4SC;
 
@@ -89,6 +84,8 @@ public class LevelLoader : MonoBehaviour
 
     private void Start()
     {
+        DataManager.Instance.LoadGame();
+
         #region level 1 scores
         if (DataManager.Instance.Level1Stars == 3)
         {
