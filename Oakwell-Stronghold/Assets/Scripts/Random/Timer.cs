@@ -15,8 +15,8 @@ public class Timer : MonoBehaviour
     public TMP_Text timerUI;
     public AudioSource starLost;
     public AudioClip starBloop;
-    private bool alreadyPlayedA = false;
-    private bool alreadyPlayedB = false;
+    private bool alreadyPlayedA = false; // makes sure it hasn't already played the lose sound when losing
+    private bool alreadyPlayedB = false; // makes sure it hasn't already played the win sound when winning
 
     public GameObject purpleStarA;
     public GameObject goldStarA;
@@ -27,13 +27,14 @@ public class Timer : MonoBehaviour
     public GameObject silverStarB;
 
     public DataManager dataManager;
+    public PlayerData playerData;
 
     void Awake()
     { instance = this; }
 
     private void Start()
     {
-        dataManager.Load();
+        dataManager.LoadGame();
 
     }
 
@@ -59,6 +60,7 @@ public class Timer : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedA = true;
+                DataManager.Instance.Level1Stars--; // damn, they down to gold
             }
         }
         
@@ -71,6 +73,7 @@ public class Timer : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedB = true;
+                DataManager.Instance.Level1Stars--; // ZAMN, they down to SILVER
             }
         }
     }

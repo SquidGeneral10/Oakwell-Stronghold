@@ -55,6 +55,6 @@ public class ExitDoor : MonoBehaviour
         Music.Stop();
         completeFanfare.Play();
         pauseMenu.LevelComplete();
-        // todo: some code for checking their stars and saving that value
+        dataManager.SaveGame();
     }
 }

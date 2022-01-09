@@ -9,7 +9,13 @@ public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
-    public PlayerData theirScore;
+    public PlayerData playerData;
+    private DataManager dataManager;
+
+    private void Awake()
+    {
+        dataManager.LoadGame();
+    }
 
     #region Star objects
     /// <summary>
@@ -47,6 +53,7 @@ public class LevelLoader : MonoBehaviour
     #endregion
 
     #region Menu loading methods
+
     public void BacktoMenu()
     { StartCoroutine(LoadLevel(0)); } // Make sure the buildindex has the main menu has its '0th' scene.
 
@@ -72,95 +79,101 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(levelIndex); // Loads the scene in the build index that has the number the coroutines had in them.
     }
 
+    public void QuitGame()
+    {
+        Debug.Log("QUIT!"); // Prints 'QUIT' if testing this in the editor.
+        Application.Quit(); // Closes the game.
+    }
+
     #endregion
 
     private void Start()
     {
         #region level 1 scores
-        if (theirScore.level1Stars == 3)
+        if (playerData.level1Stars == 3)
         {
             L1SA.SetActive(true);
             L1SB.SetActive(true);
             L1SC.SetActive(true);
         }
-        if (theirScore.level1Stars == 2)
+        if (playerData.level1Stars == 2)
         {
             L1SB.SetActive(true);
             L1SC.SetActive(true);
         }
-        if (theirScore.level1Stars == 1)
+        if (playerData.level1Stars == 1)
         {
             L1SC.SetActive(true);
         }
         #endregion
 
         #region level 2 scores
-        if (theirScore.level2Stars == 3)
+        if (playerData.level2Stars == 3)
         {
             L2SA.SetActive(true);
             L2SB.SetActive(true);
             L2SC.SetActive(true);
         }
-        if (theirScore.level2Stars == 2)
+        if (playerData.level2Stars == 2)
         {
             L2SB.SetActive(true);
             L2SC.SetActive(true);
         }
-        if (theirScore.level2Stars == 1)
+        if (playerData.level2Stars == 1)
         {
             L2SC.SetActive(true);
         }
         #endregion
 
         #region level 3 scores
-        if (theirScore.level3Stars == 3)
+        if (playerData.level3Stars == 3)
         {
             L3SA.SetActive(true);
             L3SB.SetActive(true);
             L3SC.SetActive(true);
         }
-        if (theirScore.level3Stars == 2)
+        if (playerData.level3Stars == 2)
         {
             L3SB.SetActive(true);
             L3SC.SetActive(true);
         }
-        if (theirScore.level3Stars == 1)
+        if (playerData.level3Stars == 1)
         {
             L3SC.SetActive(true);
         }
         #endregion
 
         #region level 4 scores
-        if (theirScore.level4Stars == 3)
+        if (playerData.level4Stars == 3)
         {
             L4SA.SetActive(true);
             L4SB.SetActive(true);
             L4SC.SetActive(true);
         }
-        if (theirScore.level4Stars == 2)
+        if (playerData.level4Stars == 2)
         {
             L4SB.SetActive(true);
             L4SC.SetActive(true);
         }
-        if (theirScore.level4Stars == 1)
+        if (playerData.level4Stars == 1)
         {
             L4SC.SetActive(true);
         }
         #endregion
 
         #region level 5 scores
-        if (theirScore.level5Stars == 3)
+        if (playerData.level5Stars == 3)
         {
             L5SA.SetActive(true);
             L5SB.SetActive(true);
             L5SC.SetActive(true);
         }
-        if (theirScore.level5Stars == 2)
+        if (playerData.level5Stars == 2)
         {
             L5SB.SetActive(true);
             L2SC.SetActive(true);
         }
-        if (theirScore.level5Stars == 1)
+        if (playerData.level5Stars == 1)
         {
             L5SC.SetActive(true);
         }
@@ -168,24 +181,18 @@ public class LevelLoader : MonoBehaviour
 
         #region Level select conditions
 
-        if(theirScore.level1Complete)
+        if(playerData.level1Complete)
         { Level2.SetActive(true); } // After beating level 1, Level 2 appears on the level select menu.
 
-        if (theirScore.level2Complete)
+        if (playerData.level2Complete)
         { Level3.SetActive(true); } // After beating level 2, Level 3 appears on the level select menu.
 
-        if (theirScore.level3Complete)
+        if (playerData.level3Complete)
         { Level4.SetActive(true); } // After beating level 3, Level 4 appears on the level select menu.
 
-        if (theirScore.level4Complete)
+        if (playerData.level4Complete)
         { Level5.SetActive(true); } // After beating level 4, Level 5 appears on the level select menu.
 
         #endregion
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("QUIT!"); // Prints 'QUIT' if testing this in the editor.
-        Application.Quit(); // Closes the game.
     }
 }

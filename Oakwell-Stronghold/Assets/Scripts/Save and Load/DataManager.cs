@@ -14,11 +14,17 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
-    public float Health { get; set; } = 0; // these become the star values
-    public float Stamina { get; set; } = 0;
-    public float Slurp { get; set; } = 0;
+    public int Level1Stars { get; set; } = 0;
+    public int Level2Stars { get; set; } = 0;
+    public int Level3Stars { get; set; } = 0;
+    public int Level4Stars { get; set; } = 0;
+    public int Level5Stars { get; set; } = 0;
 
-    public bool InDangerZone { get; set; } // becomes level completion bools
+    public bool Level1Complete { get; set; }
+    public bool Level2Complete { get; set; }
+    public bool Level3Complete { get; set; }
+    public bool Level4Complete { get; set; }
+    public bool Level5Complete { get; set; }
 
     public void Awake()
     {
@@ -30,22 +36,14 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         LoadGame();
     }
-    public PlayerData data;
-    private string file = "player.txt";
-
-    public void Save()
-    {
-        string json = JsonUtility.ToJson(data);
-        WriteToFile(file, json);
-    }
 
     public void SaveGame()
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saveData.dat");
 
-        PlayerData data = new PlayerData();
-
+        PlayerData data = new PlayerData(Level1Stars, Level2Stars, Level3Stars, Level4Stars, Level5Stars, Level1Complete, Level2Complete, Level3Complete, Level4Complete, Level5Complete);
+        
         bf.Serialize(file, data);
         file.Close();
     }
@@ -61,88 +59,64 @@ public class DataManager : MonoBehaviour
 
             file.Close();
         }
-    }
-
-    public void Load()
-    {
-        data = new PlayerData();
-        string json = ReadFromFile(file);
-        JsonUtility.FromJsonOverwrite(json, data);
-    }
-
-    private void WriteToFile(string fileName, string json)
-    {
-        string path = GetFilePath(fileName);
-        FileStream fileStream = new FileStream(path, FileMode.Create);
-
-        using (StreamWriter writer = new StreamWriter(fileStream))
-        {
-            writer.Write(json);
-        }
-    }
-
-    private string ReadFromFile(string fileName)
-    {
-        string path = GetFilePath(fileName);
-
-        if (File.Exists(path))
-        {
-            using (StreamReader reader = new StreamReader(path))
-            {
-                string json = reader.ReadToEnd();
-                return json;
-            }
-        }
-        else
-            Debug.LogWarning("FILE NOT FOUND!");
-        return "";
-    }
-
-    private string GetFilePath(string fileName)
-    {
-        return Application.persistentDataPath + "/" + fileName;
-    }
-    
+    }    
 }
 
-public class SaveData
+[Serializable]
+public class PlayerData
 {
     #region Star counters
+
     /// <summary>
     /// These ints are used in LevelLoader.cs to show stars (unlocked via Timer.cs) on the level select screen.
     /// </summary>
 
-    public int level1Stars = 0;
-    public int level2Stars = 0;
-    public int level3Stars = 0;
-    public int level4Stars = 0;
-    public int level5Stars = 0;
+    private int level1Stars;
+    private int level2Stars;
+    private int level3Stars;
+    private int level4Stars;
+    private int level5Stars;
+
+    public int Level1Stars => level1Stars;
+    public int Level2Stars => level2Stars;
+    public int Level3Stars => level3Stars;
+    public int Level4Stars => level4Stars;
+    public int Level5Stars => level5Stars;
+
     #endregion
 
     #region Completion bools
+
     /// <summary>
     /// These bool-y bad boys are used in LevelLoader.cs to show the next level on the level select screen when the previous level has been completed.
     /// </summary>
 
-    public bool level1Complete;
-    public bool level2Complete;
-    public bool level3Complete;
-    public bool level4Complete;
-    public bool level5Complete;
+    private bool level1Complete;
+    private bool level2Complete;
+    private bool level3Complete;
+    private bool level4Complete;
+    private bool level5Complete;
+
+    public bool Level1Complete => level1Complete;
+    public bool Level2Complete => level2Complete;
+    public bool Level3Complete => level3Complete;
+    public bool Level4Complete => level4Complete;
+    public bool Level5Complete => level5Complete;
+
     #endregion
 
-    public SaveData(int l1s, int l2s, int l3s, int l4s, int l5s, bool l1c, bool l2c, bool l3c, bool l4c, bool l5c)
+    public PlayerData(int l1s, int l2s, int l3s, int l4s, int l5s, bool l1c, bool l2c, bool l3c, bool l4c, bool l5c)
     {
-        l1s = level1Stars;
-        l2s = level2Stars;
-        l3s = level3Stars;
-        l4s = level4Stars;
-        l5s = level5Stars;
+        level1Stars = l1s;
+        level2Stars = l2s;
+        level3Stars = l3s;
+        level4Stars = l4s;
+        level5Stars = l5s;
 
-        l1c = level1Complete;
-        l2c = level2Complete;
-        l3c = level3Complete;
-        l4c = level4Complete;
-        l5c = level5Complete;
+        level1Complete = l1c;
+        level2Complete = l2c;
+        level3Complete = l3c;
+        level4Complete = l4c;
+        level5Complete = l5c;
     }
 }
