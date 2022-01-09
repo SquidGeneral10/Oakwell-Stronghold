@@ -9,8 +9,11 @@ public class ExitDoor : MonoBehaviour
 {
     public PlayerHealth player;
     public PauseMenu pauseMenu;
-    public SpriteRenderer spriteRenderer;
-    public Sprite newSprite;
+    public DataManager dataManager;
+
+    public SpriteRenderer spriteRenderer; // closed door sprite
+    public Sprite newSprite; // opened door sprite
+
     public Enemy enemy1;
     public Enemy enemy2;
     public Enemy enemy3;
@@ -19,6 +22,7 @@ public class ExitDoor : MonoBehaviour
     public AudioSource readyToGo;
     public AudioClip readyClip;
     private bool alreadyPlayed = false;
+    
 
     private void Start()
     { spriteRenderer = gameObject.GetComponent<SpriteRenderer>(); }
@@ -26,7 +30,8 @@ public class ExitDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemy1.Boned == true) // Only opens the door when all three enemies are killed. 3 enemies per level. /// && enemy2.Boned == true && enemy3.Boned == true
+        if (enemy1.Boned == true) // Only opens the door when all three enemies are killed. 3 enemies per level. 
+            /// TODO:When enemy 2 and 3 are in, add "&& enemy2.Boned == true && enemy3.Boned == true"
         { ChangeSpriteBeginSound(); }
     }
 
@@ -43,5 +48,8 @@ public class ExitDoor : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // when ya touch the pickup
-    { pauseMenu.LevelComplete(); }
+    { 
+        pauseMenu.LevelComplete();
+        
+    }
 }

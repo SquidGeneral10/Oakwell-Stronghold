@@ -489,7 +489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &134434145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1869,7 +1869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &545849899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3242,14 +3242,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1138713744}
   - component: {fileID: 1138713745}
-  - component: {fileID: 1138713746}
   m_Layer: 5
   m_Name: LevelSelectMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1138713744
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3268,7 +3267,7 @@ RectTransform:
   - {fileID: 1933924304}
   - {fileID: 134434145}
   m_Father: {fileID: 1882775534}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3287,18 +3286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f138d1421f264ce49a57729d3e2d104f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1138713746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138713743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1226229781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3315,7 +3302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1226229782
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3515,7 +3502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1251969296
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4996,8 +4983,8 @@ RectTransform:
   - {fileID: 192889118}
   - {fileID: 1226229782}
   - {fileID: 695217874}
-  - {fileID: 2119704433}
   - {fileID: 1138713744}
+  - {fileID: 2119704433}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5050,6 +5037,10 @@ MonoBehaviour:
   L5SA: {fileID: 1240928791}
   L5SB: {fileID: 1518667774}
   L5SC: {fileID: 939861982}
+  Level2: {fileID: 545849898}
+  Level3: {fileID: 1251969295}
+  Level4: {fileID: 1933924303}
+  Level5: {fileID: 134434144}
 --- !u!1 &1904033960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5224,7 +5215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1933924304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5708,7 +5699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!225 &2119704430
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5769,7 +5760,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1882775534}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

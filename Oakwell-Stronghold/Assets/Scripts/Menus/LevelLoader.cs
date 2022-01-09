@@ -37,6 +37,15 @@ public class LevelLoader : MonoBehaviour
 
     #endregion
 
+    #region Level buttons
+
+    public GameObject Level2;
+    public GameObject Level3;
+    public GameObject Level4;
+    public GameObject Level5;
+
+    #endregion
+
     #region Menu loading methods
     public void BacktoMenu()
     { StartCoroutine(LoadLevel(0)); } // Make sure the buildindex has the main menu has its '0th' scene.
@@ -155,6 +164,22 @@ public class LevelLoader : MonoBehaviour
         {
             L5SC.SetActive(true);
         }
+        #endregion
+
+        #region Level select conditions
+
+        if(theirScore.level1Complete)
+        { Level2.SetActive(true); } // After beating level 1, Level 2 appears on the level select menu.
+
+        if (theirScore.level2Complete)
+        { Level3.SetActive(true); } // After beating level 2, Level 3 appears on the level select menu.
+
+        if (theirScore.level3Complete)
+        { Level4.SetActive(true); } // After beating level 3, Level 4 appears on the level select menu.
+
+        if (theirScore.level4Complete)
+        { Level5.SetActive(true); } // After beating level 4, Level 5 appears on the level select menu.
+
         #endregion
     }
 

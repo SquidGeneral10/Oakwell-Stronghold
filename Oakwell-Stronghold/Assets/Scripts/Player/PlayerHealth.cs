@@ -15,6 +15,8 @@ namespace Player
         public Animator animator;
         public HealthPickup coin;
         public AudioSource pain;
+        public AudioSource gameOver;
+        public AudioSource Music;
         public PauseMenu pauseMenu;
 
         void Start()
@@ -42,9 +44,10 @@ namespace Player
             yield return new WaitForSeconds(1.3f); // You're dead - let that sink in. It's cold outside.
 
             pauseMenu.GameOver();
+            Music.Stop(); // stops the music
+            gameOver.Play(); // plays the game over noise
             Cursor.visible = true; // Makes the cursor visible.
             Cursor.lockState = CursorLockMode.None; // Allows the player to move their cursor around and click freely.
         }
     }
 }
-

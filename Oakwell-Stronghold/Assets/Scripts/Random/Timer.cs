@@ -13,6 +13,10 @@ public class Timer : MonoBehaviour
     static bool active;
     public float transitionTime = 1f;
     public TMP_Text timerUI;
+    public AudioSource starLost;
+    public AudioClip starBloop;
+    private bool alreadyPlayedA = false;
+    private bool alreadyPlayedB = false;
 
     public GameObject purpleStarA;
     public GameObject goldStarA;
@@ -22,8 +26,16 @@ public class Timer : MonoBehaviour
     public GameObject goldStarB;
     public GameObject silverStarB;
 
+    public DataManager dataManager;
+
     void Awake()
     { instance = this; }
+
+    private void Start()
+    {
+        dataManager.Load();
+
+    }
 
     void Update()
     {
@@ -38,16 +50,28 @@ public class Timer : MonoBehaviour
 
         timerUI.text = minutes + ":" + seconds;
 
-        if(countdown <= 120f)
-        { 
+        if(countdown <= 119f)
+        {
             purpleStarA.SetActive(false); // Removes the purple star that's always visible
             purpleStarB.SetActive(false); // Removes the purple star on the LevelComplete UI
+
+            if (!alreadyPlayedA) // only plays this sound effect once. removing this will cause audio spam.
+            {
+                starLost.PlayOneShot(starBloop);
+                alreadyPlayedA = true;
+            }
         }
         
-        if(countdown <= 60f)
-        { 
+        if(countdown <= 59f)
+        {
             goldStarA.SetActive(false); // Removes the gold star that's always visible
             goldStarB.SetActive(false); // Removes the gold star on the LevelComplete UI
+
+            if (!alreadyPlayedB) // only plays this sound effect once. removing this will cause audio spam.
+            {
+                starLost.PlayOneShot(starBloop);
+                alreadyPlayedB = true;
+            }
         }
     }
 }
