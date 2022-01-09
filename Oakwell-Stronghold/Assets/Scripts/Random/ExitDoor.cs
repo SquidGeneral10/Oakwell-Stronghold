@@ -9,7 +9,6 @@ public class ExitDoor : MonoBehaviour
 {
     public PlayerHealth player;
     public PauseMenu pauseMenu;
-    public DataManager dataManager;
 
     public SpriteRenderer spriteRenderer; // closed door sprite
     public Sprite newSprite; // opened door sprite
@@ -55,6 +54,6 @@ public class ExitDoor : MonoBehaviour
         Music.Stop();
         completeFanfare.Play();
         pauseMenu.LevelComplete();
-        dataManager.SaveGame();
+        DataManager.Instance.SaveGame();
     }
 }

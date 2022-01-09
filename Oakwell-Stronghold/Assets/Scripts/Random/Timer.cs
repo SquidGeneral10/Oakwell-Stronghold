@@ -34,8 +34,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        dataManager.LoadGame();
-
+        DataManager.Instance.LoadGame();
     }
 
     void Update()

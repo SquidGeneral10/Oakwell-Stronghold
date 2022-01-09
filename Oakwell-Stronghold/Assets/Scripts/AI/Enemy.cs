@@ -101,7 +101,6 @@ public class Enemy : MonoBehaviour
             foreach (Collider2D player in hitPlayer) // hurts the player when they're in the circle
             {
                 player.GetComponent<PlayerHealth>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
-                Debug.Log("Hit by enemy!");
             }
         }
     }

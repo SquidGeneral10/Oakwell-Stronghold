@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        DataManager.Instance.LoadGame();
     }
 
     public void QuitGame()

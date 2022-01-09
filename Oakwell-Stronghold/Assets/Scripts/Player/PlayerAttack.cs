@@ -37,7 +37,6 @@ public class PlayerAttack : MonoBehaviour
         foreach(Collider2D enemy in hitEnemies)
         {
             enemy.GetComponent<Enemy>().TakeDamage(attackDamage); // default attack damage (at the top) is 1, leaves door open for upgrades :P
-            Debug.Log("We hit " + enemy.name); // omg its danny, nooo
         }
     }
 
