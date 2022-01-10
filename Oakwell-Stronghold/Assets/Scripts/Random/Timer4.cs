@@ -9,6 +9,7 @@ using TMPro;
 public class Timer4 : MonoBehaviour
 {
     static Timer4 instance;
+
     public float countdown = 180.0f; // Every level will count down from 3 minutes. CHANGE IN EDITOR.
     static bool active;
     public float transitionTime = 1f;
@@ -17,6 +18,8 @@ public class Timer4 : MonoBehaviour
     public AudioClip starBloop;
     private bool alreadyPlayedA = false; // makes sure it hasn't already played the lose sound when losing
     private bool alreadyPlayedB = false; // makes sure it hasn't already played the win sound when winning
+
+    #region gameobjects
 
     /// <summary>
     /// these stars are in the UI in the top right
@@ -32,17 +35,13 @@ public class Timer4 : MonoBehaviour
     public GameObject goldStarB;
     public GameObject silverStarB;
 
+    #endregion
+
     public DataManager dataManager;
     public PlayerData playerData;
 
     void Awake()
     { instance = this; }
-
-    private void Start()
-    {
-        DataManager.Instance.Level4Stars = 3;
-        DataManager.Instance.SaveGame();
-    }
 
     void Update()
     {
@@ -57,6 +56,11 @@ public class Timer4 : MonoBehaviour
 
         timerUI.text = minutes + ":" + seconds;
 
+        if (countdown >= 120) // player still has 3 stars til a minute's passed
+        {
+            DataManager.Instance.Level4Stars = 3;
+        }
+
         if (countdown <= 119f)
         {
             purpleStarA.SetActive(false); // Removes the purple star that's always visible
@@ -66,7 +70,7 @@ public class Timer4 : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedA = true;
-                DataManager.Instance.Level4Stars--; // damn, they down to gold
+                DataManager.Instance.Level4Stars = 2; // damn, they down to gold
             }
         }
 
@@ -79,7 +83,7 @@ public class Timer4 : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedB = true;
-                DataManager.Instance.Level4Stars--; // ZAMN, they down to SILVER
+                DataManager.Instance.Level4Stars = 1; // ZAMN, they down to SILVER
             }
         }
     }

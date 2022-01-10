@@ -13,9 +13,10 @@ public class ExitDoor : MonoBehaviour
     public SpriteRenderer spriteRenderer; // closed door sprite
     public Sprite newSprite; // opened door sprite
 
-    public Enemy enemy1;
-    public Enemy enemy2;
-    public Enemy enemy3;
+    public Enemy enemy1; // drag enemy1 in here, easiest enemy to reach
+    public Enemy enemy2; // drag enemy2 in here in inspector
+    public Enemy enemy3; // ditto above w/ enemy 3
+
     [HideInInspector] public bool reachedExit = false;
     public BoxCollider2D exitBox;
     public AudioSource readyToGo; // door opening sound
@@ -51,6 +52,37 @@ public class ExitDoor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) // when ya touch the door
     {
+        if (DataManager.Instance.Level1Stars > 0)
+        {
+            DataManager.Instance.Level1Complete = true;
+            DataManager.Instance.SaveGame();
+        }
+
+        if (DataManager.Instance.Level2Stars > 0)
+        {
+            DataManager.Instance.Level2Complete = true;
+            DataManager.Instance.SaveGame();
+        }
+
+        if (DataManager.Instance.Level3Stars > 0)
+        {
+            DataManager.Instance.Level3Complete = true;
+            DataManager.Instance.SaveGame();
+        }
+
+        if (DataManager.Instance.Level4Stars > 0)
+        {
+            DataManager.Instance.Level4Complete = true;
+            DataManager.Instance.SaveGame();
+        }
+
+        if (DataManager.Instance.Level5Stars > 0)
+        {
+            DataManager.Instance.Level5Complete = true;
+            DataManager.Instance.SaveGame();
+        }
+
+
         Music.Stop(); // music stops
         completeFanfare.Play(); // happy music starts
         pauseMenu.LevelComplete(); // level's done

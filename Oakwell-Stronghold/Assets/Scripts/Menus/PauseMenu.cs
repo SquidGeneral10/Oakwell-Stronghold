@@ -69,9 +69,8 @@ public class PauseMenu : MonoBehaviour
         gameOverUI.SetActive(true);
     }
 
-    public void LevelComplete() // TODO: stars visible - e.g if they did great, gameObject.PurpleStar = true, etc.
+    public void LevelComplete()
     {
-        DataManager.Instance.SaveGame(); // game saves
         GameIsPaused = true;
         Cursor.visible = true;
         Time.timeScale = 0f;

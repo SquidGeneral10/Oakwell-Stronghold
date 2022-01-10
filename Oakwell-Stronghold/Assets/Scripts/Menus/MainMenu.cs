@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        DataManager.Instance.SaveGame();
+        // DataManager.Instance.SaveGame();
         Debug.Log("QUIT!"); // Prints 'QUIT' if testing this in the editor.
         Application.Quit(); // Closes the game.
     }

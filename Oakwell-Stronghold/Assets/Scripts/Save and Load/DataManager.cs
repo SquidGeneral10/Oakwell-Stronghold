@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
+    #region Publics 
     public int Level1Stars { get; set; } = 0;
     public int Level2Stars { get; set; } = 0;
     public int Level3Stars { get; set; } = 0;
@@ -25,6 +26,8 @@ public class DataManager : MonoBehaviour
     public bool Level3Complete { get; set; }
     public bool Level4Complete { get; set; }
     public bool Level5Complete { get; set; }
+
+    #endregion
 
     public void Awake()
     {
