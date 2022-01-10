@@ -38,7 +38,7 @@ public class LevelLoader : MonoBehaviour
 
     #endregion
 
-    #region Level buttons
+    #region Level buttons for the LoadLevel menu
 
     public GameObject Level2;
     public GameObject Level3;
@@ -108,7 +108,6 @@ public class LevelLoader : MonoBehaviour
                 L1SC.SetActive(true);
             }
         }
-
 
         #endregion
 
@@ -216,7 +215,7 @@ public class LevelLoader : MonoBehaviour
 
         #endregion
 
-        #region Level select conditions
+        #region Level select menu conditions
 
         if(DataManager.Instance.Level1Complete)
         { Level2.SetActive(true); } // After beating level 1, Level 2 appears on the level select menu.
@@ -234,5 +233,20 @@ public class LevelLoader : MonoBehaviour
         { congratulations.SetActive(true); }
 
         #endregion
+    }
+
+    public void ContinueManager()
+    {
+        if(DataManager.Instance.Level1Complete)
+        { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2); } // loads level 2 if they did level 1
+
+        if(DataManager.Instance.Level2Complete)
+        { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3); } // loads level 3 if they did level 2
+
+        if (DataManager.Instance.Level3Complete)
+        { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4); } // loads level 4 if they did level 3
+
+        if (DataManager.Instance.Level4Complete)
+        { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5); } // loads level 5 if they did level 4
     }
 }

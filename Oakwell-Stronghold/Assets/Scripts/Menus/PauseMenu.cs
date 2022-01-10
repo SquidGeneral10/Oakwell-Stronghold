@@ -40,6 +40,17 @@ public class PauseMenu : MonoBehaviour
 
         if(exitConditions.reachedExit == true)
         { LevelComplete(); } // Runs when the player touches the openDoor object.
+
+        if (timer = null)
+            return;
+        if (timer2 = null)
+            return;
+        if (timer3 = null)
+            return;
+        if (timer4 = null)
+            return;
+        if (timer5 = null)
+            return;
     }
 
     public void Resume()

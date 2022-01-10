@@ -3478,7 +3478,7 @@ RectTransform:
   - {fileID: 1430277612}
   - {fileID: 1822089317}
   m_Father: {fileID: 1992421714}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7061,8 +7061,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 107.9, y: -0.000030517578}
-  m_SizeDelta: {x: 80.9, y: 77.3}
+  m_AnchoredPosition: {x: 150.44005, y: -0.000030517578}
+  m_SizeDelta: {x: 182.48, y: 77.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1430277613
 MonoBehaviour:
@@ -7082,7 +7082,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 0 / 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 784cd5ce7ca85ce46a3d41aea23cf7cb, type: 2}
   m_sharedMaterial: {fileID: 4001886555286284242, guid: 784cd5ce7ca85ce46a3d41aea23cf7cb,
@@ -7152,10 +7152,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1430277613}
-    characterCount: 2
+    characterCount: 5
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 2
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -7774,7 +7774,7 @@ RectTransform:
   - {fileID: 812381165}
   - {fileID: 601545082}
   m_Father: {fileID: 1992421714}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8253,7 +8253,7 @@ RectTransform:
   - {fileID: 1666338137}
   - {fileID: 978451635}
   m_Father: {fileID: 1992421714}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8343,7 +8343,7 @@ RectTransform:
   - {fileID: 1980755952}
   - {fileID: 467804486}
   m_Father: {fileID: 1992421714}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8801,6 +8801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1822089317}
+  - component: {fileID: 1822089318}
   m_Layer: 0
   m_Name: ScoreCode
   m_TagString: Untagged
@@ -8822,6 +8823,22 @@ Transform:
   m_Father: {fileID: 763230875}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1822089318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822089316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb97804c0a9b7684cadd86e97d0cc348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy1: {fileID: 1200687524}
+  enemy2: {fileID: 0}
+  enemy3: {fileID: 0}
+  scoreUI: {fileID: 1430277613}
 --- !u!1 &1830561436
 GameObject:
   m_ObjectHideFlags: 0
@@ -9150,7 +9167,7 @@ RectTransform:
   - {fileID: 1050524020}
   - {fileID: 208091233}
   m_Father: {fileID: 1992421714}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9690,11 +9707,11 @@ RectTransform:
   m_Children:
   - {fileID: 1192395902}
   - {fileID: 712222769}
+  - {fileID: 763230875}
   - {fileID: 1555305876}
   - {fileID: 1716075687}
   - {fileID: 1783146434}
   - {fileID: 1884901485}
-  - {fileID: 763230875}
   - {fileID: 487484044}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -9766,6 +9783,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: {fileID: 625519420}
+  timer2: {fileID: 0}
+  timer3: {fileID: 0}
+  timer4: {fileID: 0}
+  timer5: {fileID: 0}
   pauseMenuUI: {fileID: 1555305875}
   gameOverUI: {fileID: 1783146433}
   levelCompleteUI: {fileID: 1884901484}
