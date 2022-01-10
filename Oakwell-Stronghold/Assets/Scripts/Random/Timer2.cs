@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 #endregion
 
-public class Timer : MonoBehaviour
+public class Timer2 : MonoBehaviour
 {
-    static Timer instance;
+    static Timer2 instance;
     public float countdown = 180.0f; // Every level will count down from 3 minutes. CHANGE IN EDITOR.
     static bool active;
     public float transitionTime = 1f;
@@ -40,14 +40,14 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Instance.Level1Stars = 3;
+        DataManager.Instance.Level2Stars = 3;
         DataManager.Instance.SaveGame();
     }
 
     void Update()
     {
         if (countdown > 0) // Gradually counts down until reaching 0.
-        countdown -= Time.deltaTime;
+            countdown -= Time.deltaTime;
 
         int displayTimer = Mathf.CeilToInt(countdown);
 
@@ -57,7 +57,7 @@ public class Timer : MonoBehaviour
 
         timerUI.text = minutes + ":" + seconds;
 
-        if(countdown <= 119f)
+        if (countdown <= 119f)
         {
             purpleStarA.SetActive(false); // Removes the purple star that's always visible
             purpleStarB.SetActive(false); // Removes the purple star on the LevelComplete UI         
@@ -66,11 +66,11 @@ public class Timer : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedA = true;
-                DataManager.Instance.Level1Stars--; // damn, they down to gold
+                DataManager.Instance.Level2Stars--; // damn, they down to gold
             }
         }
-        
-        if(countdown <= 59f)
+
+        if (countdown <= 59f)
         {
             goldStarA.SetActive(false); // Removes the gold star that's always visible
             goldStarB.SetActive(false); // Removes the gold star on the LevelComplete UI
