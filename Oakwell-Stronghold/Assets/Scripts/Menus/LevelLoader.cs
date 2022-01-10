@@ -87,93 +87,118 @@ public class LevelLoader : MonoBehaviour
         DataManager.Instance.LoadGame();
 
         #region level 1 scores
+
         if (DataManager.Instance.Level1Stars == 3)
         {
+            Level1Unlocked();
             L1SA.SetActive(true);
             L1SB.SetActive(true);
             L1SC.SetActive(true);
         }
         if (DataManager.Instance.Level1Stars == 2)
         {
+            Level1Unlocked();
             L1SB.SetActive(true);
             L1SC.SetActive(true);
         }
         if (DataManager.Instance.Level1Stars == 1)
         {
+            Level1Unlocked();
             L1SC.SetActive(true);
         }
+
         #endregion
 
         #region level 2 scores
+
         if (DataManager.Instance.Level2Stars == 3)
         {
+            Level2Unlocked();
             L2SA.SetActive(true);
             L2SB.SetActive(true);
             L2SC.SetActive(true);
         }
         if (DataManager.Instance.Level2Stars == 2)
         {
+            Level2Unlocked();
             L2SB.SetActive(true);
             L2SC.SetActive(true);
         }
         if (DataManager.Instance.Level2Stars == 1)
         {
+            Level2Unlocked();
             L2SC.SetActive(true);
         }
+
         #endregion
 
         #region level 3 scores
+
         if (DataManager.Instance.Level3Stars == 3)
         {
+            Level3Unlocked();
             L3SA.SetActive(true);
             L3SB.SetActive(true);
             L3SC.SetActive(true);
         }
         if (DataManager.Instance.Level3Stars == 2)
         {
+            Level3Unlocked();
             L3SB.SetActive(true);
             L3SC.SetActive(true);
         }
         if (DataManager.Instance.Level3Stars == 1)
         {
+            Level3Unlocked();
             L3SC.SetActive(true);
         }
+
         #endregion
 
         #region level 4 scores
+
         if (DataManager.Instance.Level4Stars == 3)
         {
+            Level4Unlocked();
             L4SA.SetActive(true);
             L4SB.SetActive(true);
             L4SC.SetActive(true);
         }
         if (DataManager.Instance.Level4Stars == 2)
         {
+            Level4Unlocked();
             L4SB.SetActive(true);
             L4SC.SetActive(true);
         }
         if (DataManager.Instance.Level4Stars == 1)
         {
+            Level4Unlocked();
             L4SC.SetActive(true);
         }
+
         #endregion
 
         #region level 5 scores
+
         if (DataManager.Instance.Level5Stars == 3)
         {
+            Level5Beaten();
             L5SA.SetActive(true);
             L5SB.SetActive(true);
             L5SC.SetActive(true);
         }
         if (DataManager.Instance.Level5Stars == 2)
         {
+            Level5Beaten();
             L5SB.SetActive(true);
             L5SC.SetActive(true);
         }
         if (DataManager.Instance.Level5Stars == 1)
         {
+            Level5Beaten();
             L5SC.SetActive(true);
         }
+
         #endregion
 
         #region Level select conditions
@@ -195,4 +220,19 @@ public class LevelLoader : MonoBehaviour
 
         #endregion
     }
+
+    private void Level1Unlocked()
+    { DataManager.Instance.Level1Complete = true; }
+
+    private void Level2Unlocked()
+    { DataManager.Instance.Level2Complete = true; }
+
+    private void Level3Unlocked()
+    { DataManager.Instance.Level3Complete = true; }
+
+    private void Level4Unlocked()
+    { DataManager.Instance.Level4Complete = true; }
+
+    private void Level5Beaten()
+    { DataManager.Instance.Level5Complete = true; }
 }

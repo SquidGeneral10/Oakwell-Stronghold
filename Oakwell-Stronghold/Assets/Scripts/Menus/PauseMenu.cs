@@ -7,7 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Timer timer; // used for triggering a game over
+    public Timer timer; // used for triggering a game over in lvl 1
+    public Timer2 timer2; // used for triggering a game over in lvl 2
+    public Timer3 timer3; // used for triggering a game over in lvl 3
+    public Timer4 timer4; // used for triggering a game over in lvl 4
+    public Timer5 timer5; // used for triggering a game over in lvl 5
+
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
@@ -30,8 +35,8 @@ public class PauseMenu : MonoBehaviour
             { Pause(); }
         }
 
-        if(timer.countdown <= 0f)
-        { GameOver(); } // Game over when timer hits 0
+        if(timer.countdown <= 0f || timer2.countdown <= 0f || timer3.countdown <= 0f || timer4.countdown <= 0f || timer5.countdown <= 0f)
+        { GameOver(); } // Game over when any timer hits 0
 
         if(exitConditions.reachedExit == true)
         { LevelComplete(); } // Runs when the player touches the openDoor object.

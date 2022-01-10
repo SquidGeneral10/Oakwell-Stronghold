@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 #endregion
 
-public class Timer2 : MonoBehaviour
+public class Timer4 : MonoBehaviour
 {
-    static Timer2 instance;
+    static Timer4 instance;
     public float countdown = 180.0f; // Every level will count down from 3 minutes. CHANGE IN EDITOR.
     static bool active;
     public float transitionTime = 1f;
@@ -40,7 +40,7 @@ public class Timer2 : MonoBehaviour
 
     private void Start()
     {
-        DataManager.Instance.Level2Stars = 3;
+        DataManager.Instance.Level4Stars = 3;
         DataManager.Instance.SaveGame();
     }
 
@@ -66,7 +66,7 @@ public class Timer2 : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedA = true;
-                DataManager.Instance.Level2Stars--; // damn, they down to gold
+                DataManager.Instance.Level4Stars--; // damn, they down to gold
             }
         }
 
@@ -79,7 +79,7 @@ public class Timer2 : MonoBehaviour
             {
                 starLost.PlayOneShot(starBloop);
                 alreadyPlayedB = true;
-                DataManager.Instance.Level2Stars--; // ZAMN, they down to SILVER
+                DataManager.Instance.Level4Stars--; // ZAMN, they down to SILVER
             }
         }
     }
