@@ -1,8 +1,6 @@
 #region 'Using' information
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
-using System.Collections.Generic;
 #endregion
 
 public class CharacterController2D : MonoBehaviour
@@ -68,9 +66,11 @@ public class CharacterController2D : MonoBehaviour
 	{
 		// Only control the player if they're on the ground or in the air with AirControl checked.
 		if (m_Grounded || m_AirControl)
-		{	
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y); // Move the character by finding the target velocity	
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing); // And then smoothing it out and applying it to the character
+		{
+			// Move the character by finding the target velocity
+			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			// And then smoothing it out and applying it to the character
+			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !m_FacingRight)
@@ -80,8 +80,9 @@ public class CharacterController2D : MonoBehaviour
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
 			else if (move < 0 && m_FacingRight)
-			{			
-				Flip(); // ... flip the player.
+			{
+				// ... flip the player.
+				Flip();
 			}
 		}
 		// If the player should jump...

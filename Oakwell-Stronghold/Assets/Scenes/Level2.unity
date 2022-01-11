@@ -4193,10 +4193,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 625519419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c674340b9bba254d81dc9ec4317055e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2825c54a36038b843815026a1bbf9b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: 182
+  countdown: 180
   transitionTime: 1
   timerUI: {fileID: 1486912418}
   starLost: {fileID: 2010553881}
@@ -12123,8 +12123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0870a8f31928a44488798c97afe402cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 625519420}
-  timer2: {fileID: 0}
+  timer: {fileID: 0}
+  timer2: {fileID: 625519420}
   timer3: {fileID: 0}
   timer4: {fileID: 0}
   timer5: {fileID: 0}
