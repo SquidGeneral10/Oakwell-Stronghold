@@ -3376,7 +3376,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2615
   m_GroundCheck: {fileID: 596371377}
-  m_Grounded: 0
   OnJumpingEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -4196,7 +4195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c674340b9bba254d81dc9ec4317055e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: 182
+  countdown: 120
   transitionTime: 1
   timerUI: {fileID: 1486912418}
   starLost: {fileID: 2010553881}
