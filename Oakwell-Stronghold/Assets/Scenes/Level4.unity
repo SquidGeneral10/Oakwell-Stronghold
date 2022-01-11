@@ -4331,7 +4331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea367d3e94421649b086477665afa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: 180
+  countdown: 120
   transitionTime: 1
   timerUI: {fileID: 1486912418}
   starLost: {fileID: 2010553881}
