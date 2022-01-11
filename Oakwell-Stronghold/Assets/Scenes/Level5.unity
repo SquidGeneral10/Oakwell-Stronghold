@@ -7863,7 +7863,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1992421717}
-        m_MethodName: NextLevel
+        m_MethodName: BacktoMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7891,7 +7891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 69ebb887cbf31c64ab7fadfbdf959b18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3faf3708ac2a0da49b799f534e392dd7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -82,14 +82,15 @@ public class PauseMenu : MonoBehaviour
     {
         GameIsPaused = false; 
         Resume();
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void BacktoMenu()
     {
         GameIsPaused = false;
+        Resume();
         Debug.Log("Back to menu!"); // Prints 'Back to menu!' if testing this in the editor.
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
     }
 
     public void NextLevel()
