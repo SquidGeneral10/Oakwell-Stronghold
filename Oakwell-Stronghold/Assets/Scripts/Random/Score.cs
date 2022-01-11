@@ -36,7 +36,6 @@ public class Score : MonoBehaviour
             }
         }
 
-        /*
         if (!scoreIncrease2)
         {
             if (enemy2.Boned)
@@ -54,7 +53,6 @@ public class Score : MonoBehaviour
                 skeletonsSaved++;
             }
         }
-        */
 
         #endregion
 

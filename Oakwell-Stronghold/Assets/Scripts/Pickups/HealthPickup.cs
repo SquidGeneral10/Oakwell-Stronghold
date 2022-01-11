@@ -13,7 +13,7 @@ public class HealthPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) // when ya touch the pickup
     {
-        if(playerHealth.currentHealth < playerHealth.maxHealth) // and if ya need to heal...
+        if(collision.gameObject.tag == "Player" && playerHealth.currentHealth < playerHealth.maxHealth) // and if ya need to heal...
         {
             ding.Play();
             RestoreHealth(1);

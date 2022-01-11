@@ -30,11 +30,9 @@ public class ExitDoor : MonoBehaviour
     private void Start()
     { spriteRenderer = gameObject.GetComponent<SpriteRenderer>(); }
 
-    // Update is called once per frame
     void Update()
     {
-        if (enemy1.Boned == true) // Only opens the door when all three enemies are killed. 3 enemies per level. 
-            /// TODO:When enemy 2 and 3 are in, add "&& enemy2.Boned == true && enemy3.Boned == true"
+        if (enemy1.Boned == true && enemy2.Boned == true && enemy3.Boned == true) // Only opens the door when all three enemies are killed. 3 enemies per level. 
         { ChangeSpriteBeginSound(); }
     }
 

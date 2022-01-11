@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
     {
         anim.SetBool("canMove", true); // TODO: Figure out why the first two frames of the moving animation are the only ones playing. Maybe it's trying to play more than one animation at once?
 
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Punching")) // Moves the enemy, as long as they aren't already punching them.
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Punching")) // Moves the enemy, as long as they aren't already punching the player.
         {
             Vector2 targetPosition = new Vector2(target.position.x, transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);

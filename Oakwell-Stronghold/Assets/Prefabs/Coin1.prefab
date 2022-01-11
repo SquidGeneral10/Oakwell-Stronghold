@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4404653113287840481}
   - component: {fileID: 4404653113287840482}
   - component: {fileID: 4404653113287840495}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Coin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,8 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879befe1623e13344849484f26b3ac59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBonus: 1
-  collected: 0
+  ding: {fileID: 0}
 --- !u!58 &4404653113287840495
 CircleCollider2D:
   m_ObjectHideFlags: 0

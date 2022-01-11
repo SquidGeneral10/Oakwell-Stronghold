@@ -43,6 +43,7 @@ namespace Player
 
         public void OnFalling()
         {
+            animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
             fall = true;
         }
@@ -54,7 +55,7 @@ namespace Player
                 controller.Move(horizontalMove * Time.fixedDeltaTime, jump); // When the player moves horizontally, they simply move in that direction without jumping.
                 jump = false; // Stops the player from jumping forever and ever and ever and ever.
             }
-            else
+            else // stops player from moving when they are dead
             {
                 controller.Move(0 * 0, jump);
                 runSpeed = 0f;

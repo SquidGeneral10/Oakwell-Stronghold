@@ -35,22 +35,11 @@ public class PauseMenu : MonoBehaviour
             { Pause(); }
         }
 
-        if(timer.countdown <= 0f || timer2.countdown <= 0f || timer3.countdown <= 0f || timer4.countdown <= 0f || timer5.countdown <= 0f)
+        if (timer.countdown <= 0f || timer2.countdown <= 0f || timer3.countdown <= 0f || timer4.countdown <= 0f || timer5.countdown <= 0f)
         { GameOver(); } // Game over when any timer hits 0
 
         if(exitConditions.reachedExit == true)
         { LevelComplete(); } // Runs when the player touches the openDoor object.
-
-        if (timer = null)
-            return;
-        if (timer2 = null)
-            return;
-        if (timer3 = null)
-            return;
-        if (timer4 = null)
-            return;
-        if (timer5 = null)
-            return;
     }
 
     public void Resume()
